@@ -1,0 +1,73 @@
+.megaorders-toolbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 0 1rem;
+  .logo-text {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--text);
+    margin-right: 1.25rem;
+  }
+  nav {
+    display: flex;
+    gap: 0.75rem;
+  }
+  .header-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+/* Neutralize Material buttons/links in header */
+.megaorders-toolbar {
+  height: var(--header-height);
+  align-items: center;
+  padding-right: 96px;
+  :where(.mat-mdc-button, .mat-mdc-stroked-button, .mat-mdc-unelevated-button) {
+    --mdc-filled-button-container-color: transparent;
+    --mdc-filled-button-label-text-color: var(--text);
+    --mdc-text-button-label-text-color: var(--text);
+    --mdc-outlined-button-label-text-color: var(--text);
+    --mdc-outlined-button-outline-color: var(--border);
+    color: var(--text);
+  }
+}
+
+.megaorders-toolbar .mat-mdc-stroked-button:not(:disabled) {
+  background: transparent;
+  border-color: var(--border);
+}
+.megaorders-toolbar .mat-mdc-stroked-button:hover {
+  background: var(--surface-hover);
+}
+.megaorders-toolbar a.mat-mdc-button {
+  color: var(--text);
+  opacity: 0.9;
+}
+.megaorders-toolbar a.mat-mdc-button:hover {
+  opacity: 1;
+}
+
+/* Unified nav typography */
+.megaorders-toolbar :where(a.mat-mdc-button, .nav-item) {
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+/* CTA (Register) background, works with Material */
+.btn-cta {
+  --mdc-filled-button-container-color: var(--cta-bg);
+  --mdc-filled-button-label-text-color: var(--cta-text);
+  background: var(--cta-bg);
+  color: var(--cta-text) !important;
+  border: 1px solid transparent;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius);
+  height: var(--btn-height);
+}
+.btn-cta:hover {
+  background: var(--cta-bg-hover);
+}

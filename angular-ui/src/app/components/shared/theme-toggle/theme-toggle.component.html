@@ -1,0 +1,14 @@
+<div class="theme-toggle">
+  <button
+    mat-icon-button
+    class="icon"
+    (click)="toggleDarkLight()"
+    [attr.aria-label]="effective() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+  >
+    <mat-icon>{{ effective() === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
+
+  <button mat-icon-button class="icon" (click)="setSystem()" aria-label="Follow system theme">
+    <mat-icon>settings</mat-icon>
+  </button>
+</div>

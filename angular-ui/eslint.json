@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "files": ["*.html"],
+      "parser": "@angular-eslint/template-parser",
+      "plugins": ["@angular-eslint/template"],
+      "rules": {
+        "@angular-eslint/template/indent": ["error", 2]
+      }
+    }
+  ]
+}

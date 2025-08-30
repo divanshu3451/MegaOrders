@@ -1,0 +1,65 @@
+.hero-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 0;
+  /* soft surface gradient that reads well in both themes */
+  // background: linear-gradient(135deg, var(--surface), var(--surface-hover));
+  text-align: center;
+}
+
+.hero-card {
+  padding: 1rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: 9px;
+  color: var(--text);
+  width: 99%;
+}
+
+.hero-title {
+  margin-top: 0;
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.hero-subtitle {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-btn {
+  min-width: 180px;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+}
+
+/* CTA: neutral filled button using your tokens */
+.hero-btn.cta {
+  --mdc-filled-button-container-color: var(--cta-bg);
+  --mdc-filled-button-label-text-color: #ffffff;
+  background: var(--cta-bg);
+  color: #ffffff !important;
+  border: 1px solid transparent;
+}
+.hero-btn.cta:hover {
+  background: var(--cta-bg-hover);
+}
+
+/* Optional: lighter stroked border for the two outline buttons */
+.hero-actions .mat-mdc-outlined-button {
+  --mdc-outlined-button-outline-color: var(--border);
+  color: var(--text);
+}

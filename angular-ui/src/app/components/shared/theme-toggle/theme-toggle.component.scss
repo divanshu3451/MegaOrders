@@ -1,0 +1,46 @@
+.theme-toggle {
+  position: fixed;
+  /* center vertically relative to header */
+  top: calc(var(--header-height) / 2 - 20px); /* 40px icon area */
+  right: 4px;
+
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  z-index: 1000;
+
+  /* allow clicks on icons but not the container */
+  pointer-events: none;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  width: 40px;
+  height: 40px;
+
+  --mdc-icon-button-icon-color: var(--text);
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.icon:hover {
+  background: var(--surface-hover);
+}
+
+/* Compact on small screens */
+@media (max-width: 768px) {
+  .theme-toggle {
+    top: calc(var(--header-height) / 2 - 18px);
+    right: 8px;
+    gap: 6px;
+  }
+  .icon {
+    width: 36px;
+    height: 36px;
+  }
+}

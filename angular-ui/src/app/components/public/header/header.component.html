@@ -1,0 +1,33 @@
+<mat-toolbar
+  color="primary"
+  class="megaorders-toolbar"
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <span class="logo-text">MegaOrders</span>
+  </div>
+
+  <nav fxLayout="row" fxLayoutGap="16px" fxHide.xs>
+    <a mat-button routerLink="/">Home</a>
+    <a mat-button href="#about">About</a>
+    <a mat-button href="#contact">Contact</a>
+  </nav>
+
+  <mat-menu #menu="matMenu" [overlapTrigger]="false" class="app-menu-panel">
+    <button mat-menu-item routerLink="/">Home</button>
+    <button mat-menu-item href="#about">About</button>
+    <button mat-menu-item href="#contact">Contact</button>
+    <button mat-menu-item routerLink="/login">Login</button>
+    <button mat-menu-item routerLink="/register">Register</button>
+  </mat-menu>
+
+  <div class="header-actions" fxLayout="row" fxLayoutGap="8px" fxHide.xs>
+    <button mat-unelevated-button class="btn-cta nav-item" routerLink="/login">Login</button>
+    <button mat-unelevated-button class="btn-cta nav-item" routerLink="/register">Register</button>
+  </div>
+
+  <button mat-icon-button [matMenuTriggerFor]="menu" fxShow.xs fxHide.lt-xl="true">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>

@@ -1,0 +1,50 @@
+<mat-card class="product-card">
+  <div class="product-image-container">
+    <img mat-card-image [src]="product().imageUrl" [alt]="product().name" class="product-image" />
+  </div>
+
+  <mat-card-content>
+    <mat-chip class="category-chip" color="primary" selected>
+      {{ product().categoryName }}
+    </mat-chip>
+    <h3 class="product-name">{{ product().name }}</h3>
+    <p class="product-description">{{ product().description }}</p>
+
+    <div class="rating-section">
+      <span
+        *ngFor="let filled of getStarArray()"
+        class="star"
+        [ngClass]="{ filled: filled }"
+        >★</span
+      >
+      <span class="rating-text">({{ product().reviewCount }} reviews)</span>
+    </div>
+
+    <div class="price-section">
+      <span class="current-price">${{ product().sellingPrice }}</span>
+      <span
+        class="original-price"
+        *ngIf="product().currentPrice && product().currentPrice > product().sellingPrice"
+        >${{ product().currentPrice }}</span
+      >
+      <span
+        *ngIf="getDiscountPercentage() > 0"
+        class="discount-badge-inline mat-mdc-chip mat-mdc-chip-outline"
+        >-{{ getDiscountPercentage() }}%</span
+      >
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!product().inStock"
+      matTooltip="Out of Stock"
+      matTooltipDisabled="product().inStock"
+      matTooltipPosition="above"
+    >
+      Add to Cart
+    </button>
+  </mat-card-actions>
+</mat-card>

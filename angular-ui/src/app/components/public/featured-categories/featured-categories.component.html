@@ -1,0 +1,35 @@
+<!-- featured-categories.component.html -->
+<section class="featured-categories">
+  <div class="container">
+    <h2 class="section-title">Featured Categories</h2>
+
+    <div class="item-scroller" #scroller (scroll)="onScroll()">
+      @for (category of categories(); track category.id) {
+        <div class="item">
+          <img class="item-image" [src]="category.imageUrl" [alt]="category.name" />
+          <mat-chip-option
+            class="chip"
+            (click)="onSelect(category)"
+            [matTooltip]="category.description"
+            matTooltipShowDelay="250"
+            matTooltipHideDelay="0"
+            matTooltipPosition="below"
+          >
+            <span class="chip-text">{{ category.name }}</span>
+          </mat-chip-option>
+        </div>
+      }
+    </div>
+
+    @if (!isAtStart()) {
+      <button class="nav nav-left" type="button" aria-label="Scroll left" (click)="scrollBy(-1)">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+    }
+    @if (!isAtEnd()) {
+      <button class="nav nav-right" type="button" aria-label="Scroll right" (click)="scrollBy(1)">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    }
+  </div>
+</section>

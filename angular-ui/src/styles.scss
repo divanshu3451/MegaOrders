@@ -1,0 +1,116 @@
+@use "styles/themes/themes";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+app-root,
+body,
+html {
+  width: 100%;
+  min-width: 100%;
+}
+
+:root {
+  --bg: #ffffff;
+  --surface: #f6f7f8; /* softer header/cards */
+  --surface-hover: #eef0f2;
+  --text: #111317; /* near-black */
+  --muted: #6b7280;
+  --border: #bbbbbb;
+
+  --primary-color: var(--text);
+  --radius: 4px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+
+  --cta-bg: #374151; /* gray-700 */
+  --cta-bg-hover: #2f3640; /* slightly darker */
+  --cta-text: #ffffff;
+  --header-height: 64px;
+  --btn-height: 38px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+@mixin dark-vars {
+  --bg: #0f1115; /* deep neutral */
+  --surface: #171a20; /* header/cards */
+  --surface-hover: #1c2027;
+  --text: #e5e7eb; /* light gray */
+  --muted: #a1a7b0;
+  --border: #2a2a2a;
+
+  --primary-color: var(--text);
+  --radius: 4px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+
+  --cta-bg: #3b4252; /* neutral dark */
+  --cta-bg-hover: #323846;
+  --cta-text: #e5e7eb;
+  --btn-height: 38px;
+  background: var(--bg);
+  color: var(--text);
+}
+.dark-theme {
+  @include dark-vars;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-theme):not(.dark-theme) {
+    @include dark-vars;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 56px;
+  }
+}
+
+/* Themed, wider menu panel */
+.app-menu-panel.mat-mdc-menu-panel {
+  min-width: 320px; /* increase width (adjust to taste) */
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: 12px;
+  padding: 6px 0;
+}
+
+/* Menu content spacing */
+.app-menu-panel .mat-mdc-menu-content {
+  padding: 4px 0;
+}
+
+/* Menu items */
+.app-menu-panel .mat-mdc-menu-item {
+  height: auto;
+  padding: 14px 20px;
+  line-height: 1.25;
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Hover/active states */
+.app-menu-panel .mat-mdc-menu-item:hover,
+.app-menu-panel .mat-mdc-menu-item.mdc-list-item--activated {
+  background: var(--surface-hover);
+}
+
+/* Optional: larger touch targets on small screens */
+@media (max-width: 480px) {
+  .app-menu-panel.mat-mdc-menu-panel {
+    min-width: 280px;
+  }
+  .app-menu-panel .mat-mdc-menu-item {
+    padding: 16px 22px;
+  }
+  .app-menu-panel .mat-mdc-menu-item-text {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+}

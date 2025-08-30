@@ -1,0 +1,162 @@
+/* featured-categories.component.scss */
+.featured-categories {
+  padding: 8px 0;
+  background: linear-gradient(180deg, var(--surface), transparent);
+
+  .container {
+    // max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    position: relative;
+  }
+  .section-title {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: 1.25rem;
+    color: var(--text);
+  }
+
+  /* Horizontal item scroller */
+  .item-scroller {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(120px, 1fr);
+    gap: 24px;
+    overflow-x: auto;
+    padding: 10px 6px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .item-scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .item {
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-width: 120px;
+  }
+
+  /* Image above the pill */
+  .item-image {
+    width: 84px;
+    height: 84px;
+    object-fit: contain;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: var(--shadow);
+  }
+
+  .chip.mat-mdc-chip-option {
+    --mdc-chip-container-height: 40px;
+    --mdc-chip-label-text-color: var(--text);
+    --mdc-chip-elevated-container-color: var(--surface);
+    --mdc-chip-outline-color: var(--border);
+    --mdc-chip-focus-outline-color: var(--border);
+    --mdc-chip-hover-state-layer-color: transparent;
+    --mdc-chip-focus-state-layer-color: transparent;
+    --mdc-chip-pressed-state-layer-color: transparent;
+
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    padding-inline: 16px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.08s ease;
+  }
+  .chip:hover {
+    background: var(--surface-hover);
+  }
+  .chip:active {
+    transform: scale(0.985);
+  }
+
+  .nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+
+    &:hover:not(:disabled) {
+      background: var(--surface-hover);
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: translateY(-50%) scale(1);
+    }
+
+    .mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .nav-left {
+    left: -8px;
+  }
+
+  .nav-right {
+    right: -8px;
+  }
+
+  @media (max-width: 1024px) {
+    .nav {
+      width: 36px;
+      height: 36px;
+
+      .mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .item-scroller {
+      gap: 16px;
+    }
+    .item {
+      min-width: 112px;
+    }
+    .item-image {
+      width: 72px;
+      height: 72px;
+    }
+    .chip.mat-mdc-chip-option {
+      --mdc-chip-container-height: 44px;
+      padding-inline: 18px;
+    }
+    .nav {
+      display: none;
+    }
+  }
+}

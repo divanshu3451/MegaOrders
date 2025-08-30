@@ -1,0 +1,109 @@
+.product-card {
+  max-width: 400px; // Increased from 360px
+  width: 100%; // Allows responsiveness
+  margin: 1.2rem 2rem; // Increased horizontal margin for extra space
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgb(0 0 0 / 0.2);
+  }
+
+  .product-image-container {
+    position: relative;
+
+    img.product-image {
+      width: 100%;
+      height: 240px;
+      object-fit: contain;
+      border-radius: 12px 12px 0 0;
+    }
+  }
+
+  mat-card-content {
+    padding: 1rem 1.25rem;
+  }
+
+  .category-chip {
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  .product-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 0.3rem 0;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; // Limit to 2 lines
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .product-description {
+    color: var(--color);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .rating-section {
+    display: flex;
+    align-items: center;
+
+    .star {
+      font-size: 1.15rem;
+      color: #e0e0e0;
+      margin-right: 2px;
+
+      &.filled {
+        color: #ffd600;
+      }
+    }
+
+    .rating-text {
+      font-size: 0.9rem;
+      color: #757575;
+      margin-left: 6px;
+    }
+  }
+
+  .price-section {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 1rem 0;
+
+    .current-price {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1976d2;
+    }
+
+    .original-price {
+      font-size: 1.1rem;
+      color: #9e9e9e;
+      text-decoration: line-through;
+    }
+
+    .discount-badge-inline {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #d32f2f; /* Red accent for discount */
+      padding-left: 6px;
+    }
+  }
+
+  mat-card-actions {
+    padding: 0 1.25rem 1.25rem 1.25rem;
+    button {
+      color: #ffffff !important;
+      border: 1px solid transparent;
+    }
+
+    button[disabled] {
+      cursor: not-allowed;
+    }
+  }
+}
