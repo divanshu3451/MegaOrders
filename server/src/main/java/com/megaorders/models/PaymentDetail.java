@@ -18,38 +18,20 @@ import java.util.List;
 public class PaymentDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
+    private String cardNumber;
+    private String cardHolderName;
+    private String expirationMonth;
+    private String expirationYear;
+    private String upiId;
+    private String bankName;
+    private String bankAccountNumber;
+    private LocalDateTime createdAt;
+    private Boolean isSavedDetail;
 
     @Enumerated(EnumType.STRING)
     private PaymentMode paymentMode;
 
-    @Column
-    private String cardNumber;
-
-    @Column
-    private String cardHolderName;
-
-    @Column
-    private String expirationMonth;
-
-    @Column
-    private String expirationYear;
-
-    @Column
-    private String upiId;
-
-    @Column
-    private String bankName;
-
-    @Column
-    private String bankAccountNumber;
-
-    @Column
-    private LocalDateTime createdAt;
-
-    @Column
-    private Boolean isSavedDetail;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")

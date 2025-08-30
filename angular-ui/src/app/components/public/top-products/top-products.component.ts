@@ -38,7 +38,7 @@ export class TopProductsComponent implements OnInit {
         currentPrice: 249.99,
         imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop',
         categoryName: 'Electronics',
-        rating: 4.8,
+        rating: 2.5,
         reviewCount: 892,
         inStock: true,
         tags: ['fitness', 'smartwatch', 'health']

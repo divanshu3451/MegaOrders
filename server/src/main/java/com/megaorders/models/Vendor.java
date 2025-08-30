@@ -18,16 +18,9 @@ import lombok.Setter;
 public class Vendor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
-
-    @Column
     private String companyName;
-
-    @Column
     private String companyAddress;
-
-    @Column
     private String gstNumber;
 
     @OneToOne

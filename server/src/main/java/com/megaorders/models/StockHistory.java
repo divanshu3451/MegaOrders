@@ -18,16 +18,9 @@ import java.time.LocalDateTime;
 public class StockHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
-
-    @Column
     private LocalDateTime receivedDate;
-
-    @Column
     private Long receivedQty;
-
-    @Column
     private Double price;
 
     @ManyToOne

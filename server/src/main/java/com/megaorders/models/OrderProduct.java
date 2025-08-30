@@ -13,8 +13,9 @@ import lombok.*;
 public class OrderProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
+    private Long qty;
+    private Double price;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -24,9 +25,4 @@ public class OrderProduct {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @Column
-    private Long qty;
-
-    @Column
-    private Double price;
 }

@@ -7,7 +7,7 @@
       @for (category of categories(); track category.id) {
         <div class="item">
           <img class="item-image" [src]="category.imageUrl" [alt]="category.name" />
-          <mat-chip-option
+          <mat-chip
             class="chip"
             (click)="onSelect(category)"
             [matTooltip]="category.description"
@@ -16,7 +16,7 @@
             matTooltipPosition="below"
           >
             <span class="chip-text">{{ category.name }}</span>
-          </mat-chip-option>
+          </mat-chip>
         </div>
       }
     </div>

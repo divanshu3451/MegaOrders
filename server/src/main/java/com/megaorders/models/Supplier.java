@@ -17,14 +17,11 @@ import java.util.List;
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
+    private String licenseNumber;
 
     @Enumerated(EnumType.STRING)
     private SupplierType supplierType;
-
-    @Column
-    private String licenseNumber;
 
     @OneToOne
     @JoinColumn(name = "user_id", unique = true)

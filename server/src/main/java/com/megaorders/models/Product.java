@@ -25,20 +25,21 @@ import java.util.Set;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
-
-    @Column
     private String name;
-
-    @Column
     private Double currentPrice;
+    private Double sellingPrice;
+    private Long reviewCount;
+    private Double rating;
+    private Long fiveStars;
+    private Long fourStars;
+    private Long threeStars;
+    private Long twoStars;
+    private Long oneStars;
+    private String description;
 
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
-
-    @Column
-    private String description;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

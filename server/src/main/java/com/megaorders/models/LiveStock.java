@@ -14,10 +14,7 @@ import lombok.*;
 public class LiveStock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
-
-    @Column
     private Long availableQty;
 
     @OneToOne

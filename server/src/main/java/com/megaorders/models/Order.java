@@ -22,10 +22,7 @@ import java.util.Set;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
-
-    @Column
     private LocalDateTime orderTime;
 
     @ManyToOne

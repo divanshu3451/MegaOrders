@@ -23,30 +23,25 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
+
+    @NotBlank
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private LocalDate registeredDate = LocalDate.now();
+    private Boolean isPresent = true;
 
     @Column(unique = true)
     @NotBlank
     private String username;
 
     @NotBlank
-    @Column(unique = true, name = "email")
+    @Column(unique = true)
     @Email
     private String email;
 
-    @Column(name = "first_name")
     @NotBlank
-    private String firstName;
-
-    @Column(name = "middle_name")
-    private String middleName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
-    @NotBlank
-    @Column(name = "password")
     @Size(min = 8, message = "Password must greater than 7 characters")
     private String password;
 
@@ -54,11 +49,6 @@ public class User {
     @NotNull
     private Role role;
 
-    @Column(name = "registered_date")
-    private LocalDate registeredDate = LocalDate.now();
-
-    @Column(name = "is_present")
-    private Boolean isPresent = true;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();

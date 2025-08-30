@@ -54,7 +54,7 @@
     box-shadow: var(--shadow);
   }
 
-  .chip.mat-mdc-chip-option {
+  .chip.mat-mdc-chip {
     --mdc-chip-container-height: 40px;
     --mdc-chip-label-text-color: var(--text);
     --mdc-chip-elevated-container-color: var(--surface);
@@ -151,7 +151,7 @@
       width: 72px;
       height: 72px;
     }
-    .chip.mat-mdc-chip-option {
+    .chip.mat-mdc-chip {
       --mdc-chip-container-height: 44px;
       padding-inline: 18px;
     }

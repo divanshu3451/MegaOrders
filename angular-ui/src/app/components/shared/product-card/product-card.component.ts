@@ -27,12 +27,27 @@ export class ProductCardComponent {
     return 0;
   }
 
-  getStarArray(): boolean[] {
+  getStarArray() {
     const stars = [];
-    const rating = Math.floor(this.product().rating);
-    for (let i = 0; i < 5; i++) {
-      stars.push(i < rating);
+    const rating = this.product().rating;
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= Math.floor(rating)) {
+        stars.push({ icon: 'star', class: 'star-filled' });
+      } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
+        stars.push({ icon: 'star_half', class: 'star-half' });
+      } else {
+        stars.push({ icon: 'star_outline', class: 'star-empty' });
+      }
     }
+
     return stars;
+  }
+
+  addToCart() {
+    if (this.product().inStock) {
+      console.log('Added to cart:', this.product.name);
+      // Implement your add to cart logic here
+    }
   }
 }
