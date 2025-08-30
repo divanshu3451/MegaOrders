@@ -24,12 +24,8 @@ public class StockHistory {
     private Double price;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", unique = true)
-    private Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "supplier_id", unique = true)
-    private Supplier supplier;
+    @JoinColumn(name = "product_supplier_id")
+    private ProductSupplier productSupplier;
 
     @OneToOne(mappedBy = "stockDetail", cascade = CascadeType.ALL, orphanRemoval = true)
     private LiveStock liveStock;

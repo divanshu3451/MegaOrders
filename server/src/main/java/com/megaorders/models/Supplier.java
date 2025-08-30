@@ -27,6 +27,6 @@ public class Supplier {
     @JoinColumn(name = "user_id", unique = true)
     private User user;
 
-    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<StockHistory> stocks = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplier", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ProductSupplier> products = new ArrayList<>();
 }

@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -46,8 +44,14 @@ public class Product {
     private ProductCategory category;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<StockHistory> stocks = new ArrayList<>();
+    private List<OrderProduct> orderedProducts = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderProduct> orderedProducts = new ArrayList<>();
+    private List<ProductReview> reviews = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ProductSupplier> suppliers = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ProductSellingPriceHistory> productSellingPrices = new ArrayList<>();
 }
