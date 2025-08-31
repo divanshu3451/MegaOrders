@@ -35,6 +35,8 @@ public class Product {
     private Long twoStars;
     private Long oneStars;
     private String description;
+    private Long score;
+    private Long scoreResetDays; 
 
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
