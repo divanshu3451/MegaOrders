@@ -3,7 +3,6 @@ package com.megaorders.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,4 +32,7 @@ public class ProductSupplier {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productSupplier", orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ProductCostPriceHistory> productCostPrices = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productSupplier", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Item> items = new ArrayList<>();
 }

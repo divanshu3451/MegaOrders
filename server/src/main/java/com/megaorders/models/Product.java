@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,21 +38,22 @@ public class Product {
     private String description;
     private Long score;
     private Long scoreResetInDays;
-    private Double totalRevenue;
-    private Long totalVolumeSold;
-    private Long totalReturnedVolume;
-    private Long totalReturnedVolumeDueToSupplierFault;
-    private Double last30DaysRevenue;
-    private Long last30DaysVolume;
-    private Long last30DaysReturned;
-    private Long last30DaysReturnedDueToSupplierFault;
-    private Double last90DaysRevenue;
-    private Long last90DaysVolume;
-    private Long last90DaysReturned;
-    private Long last90DaysReturnedDueToSupplierFault;
 
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
+
+    @OneToOne
+    @JoinColumn(name = "total_revenue_id", unique = true)
+    private ProductTotalRevenue totalRevenue;
+
+    @OneToOne
+    @JoinColumn(name = "30_days_revenue_id", unique = true)
+    private Product30DaysRevenue last30DaysRevenue;
+
+    @OneToOne
+    @JoinColumn(name = "90_days_revenue_id", unique = true)
+    private Product90DaysRevenue last90DaysRevenue;
+
 
     @ManyToOne
     @JoinColumn(name = "category_id")
