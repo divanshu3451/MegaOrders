@@ -23,8 +23,6 @@ public class Product30DaysRevenue {
     private Long volumeSold;
     private Long volumeReturned;
     private Long volumeReturnedDueToSupplierFault;
-    private LocalDateTime calculatedDate;
-    private Long nextCalculatedInDays;
 
     @OneToOne(mappedBy = "last30DaysRevenue", cascade = CascadeType.ALL, orphanRemoval = true)
     private Product product;
