@@ -36,7 +36,19 @@ public class Product {
     private Long oneStars;
     private String description;
     private Long score;
-    private Long scoreResetDays; 
+    private Long scoreResetInDays;
+    private Double totalRevenue;
+    private Long totalVolumeSold;
+    private Long totalReturnedVolume;
+    private Long totalReturnedVolumeDueToSupplierFault;
+    private Double last30DaysRevenue;
+    private Long last30DaysVolume;
+    private Long last30DaysReturned;
+    private Long last30DaysReturnedDueToSupplierFault;
+    private Double last90DaysRevenue;
+    private Long last90DaysVolume;
+    private Long last90DaysReturned;
+    private Long last90DaysReturnedDueToSupplierFault;
 
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
