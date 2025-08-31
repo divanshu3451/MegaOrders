@@ -24,6 +24,7 @@ public class Product90DaysRevenue {
     private Long volumeReturned;
     private Long volumeReturnedDueToSupplierFault;
 
-    @OneToOne(mappedBy = "last90DaysRevenue", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
+    @JoinColumn(name = "product_id", unique = true)
     private Product product;
 }

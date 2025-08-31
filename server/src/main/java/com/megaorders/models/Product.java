@@ -42,16 +42,13 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
 
-    @OneToOne
-    @JoinColumn(name = "total_revenue_id", unique = true)
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private ProductTotalRevenue totalRevenue;
 
-    @OneToOne
-    @JoinColumn(name = "30_days_revenue_id", unique = true)
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Product30DaysRevenue last30DaysRevenue;
 
-    @OneToOne
-    @JoinColumn(name = "90_days_revenue_id", unique = true)
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Product90DaysRevenue last90DaysRevenue;
 
 

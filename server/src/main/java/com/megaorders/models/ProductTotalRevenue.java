@@ -22,6 +22,7 @@ public class ProductTotalRevenue {
     private Long volumeReturned;
     private Long volumeReturnedDueToSupplierFault;
 
-    @OneToOne(mappedBy = "totalRevenue", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
+    @JoinColumn(name = "product_id", unique = true)
     private Product product;
 }
