@@ -1,12 +1,14 @@
 package com.megaorders.services.dummy;
 
 import com.megaorders.dtos.dummy.UserCsvDTO;
+import com.megaorders.dtos.dummy.VendorCsvDTO;
 import com.megaorders.models.User;
+import com.megaorders.models.Vendor;
 import com.megaorders.repositories.UserRepository;
+import com.megaorders.repositories.VendorRepository;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +32,14 @@ public class DataLoaderService implements CommandLineRunner {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
+    private final VendorRepository vendorRepository;
 
     @Autowired
-    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
+    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, VendorRepository vendorRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
+        this.vendorRepository = vendorRepository;
     }
 
     @Override
@@ -43,6 +47,9 @@ public class DataLoaderService implements CommandLineRunner {
         log.info("Loading dummy user data from CSV...");
         loadUsersFromCsv();
         log.info("Dummy user data loading completed.");
+        log.info("Loading dummy vendor data from CSV...");
+        loadVendorsFromCsv();
+        log.info("Dummy vendor data loading completed.");
     }
 
     private void loadUsersFromCsv() {
@@ -71,6 +78,43 @@ public class DataLoaderService implements CommandLineRunner {
 
         } catch (Exception e) {
             log.error("Error loading users from CSV: {}", e.getMessage());
+        }
+    }
+
+    private void loadVendorsFromCsv() {
+        try {
+            ClassPathResource resource = new ClassPathResource("data/vendors.csv");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+
+            CsvToBean<VendorCsvDTO> csvToBean = new CsvToBeanBuilder<VendorCsvDTO>(reader)
+                    .withType(VendorCsvDTO.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .build();
+
+            List<VendorCsvDTO> vendorCsvDTOs = csvToBean.parse();
+
+            for (VendorCsvDTO dto : vendorCsvDTOs) {
+                Optional<Vendor> existingVendor = vendorRepository.findByGstNumber(dto.getGstNumber());
+                if (existingVendor.isEmpty()) {
+                    Optional<User> user = userRepository.findByEmail(dto.getEmail());
+                    if (user.isPresent()) {
+                        Vendor vendor = new Vendor();
+                        vendor.setUser(user.get());
+                        vendor.setCompanyName(dto.getCompanyName());
+                        vendor.setCompanyAddress(dto.getCompanyAddress());
+                        vendor.setGstNumber(dto.getGstNumber());
+                        vendorRepository.save(vendor);
+                        log.info("Inserted new vendor for user: {}", dto.getEmail());
+                    } else {
+                        log.warn("User not found for vendor: {}", dto.getEmail());
+                    }
+                } else {
+                    log.info("Vendor already exists for user, skipping: {}", dto.getEmail());
+                }
+            }
+
+        } catch (Exception e) {
+            log.error("Error loading vendors from CSV: {}", e.getMessage());
         }
     }
 }
