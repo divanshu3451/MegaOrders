@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface ProductTotalRevenueRepository extends JpaRepository<Long, ProductTotalRevenue> {
+public interface ProductTotalRevenueRepository extends JpaRepository<ProductTotalRevenue, Long> {
     Optional<ProductTotalRevenue> findByProduct(Product product);
 }

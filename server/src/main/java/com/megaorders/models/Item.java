@@ -16,7 +16,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "item", indexes = {@Index(name = "idx_item_status", columnList = "status~")})
+@Table(name = "item", indexes = {@Index(name = "idx_item_status", columnList = "status")})
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

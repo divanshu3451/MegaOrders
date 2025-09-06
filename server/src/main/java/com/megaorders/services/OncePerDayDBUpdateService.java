@@ -8,6 +8,7 @@ import com.megaorders.repositories.OrderRepository;
 import com.megaorders.repositories.Product30DaysRevenueRepository;
 import com.megaorders.repositories.ProductRepository;
 import com.megaorders.repositories.ProductTotalRevenueRepository;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@NoArgsConstructor(force = true)
 public class OncePerDayDBUpdateService {
     private final Product30DaysRevenueRepository product30DaysRevenueRepository;
     private final OrderRepository orderRepository;
