@@ -7,7 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "item")
+@Table(name = "item", indexes = {@Index(name = "idx_item_status", columnList = "status~")})
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,16 +25,25 @@ public class Item {
     @Column(unique = true)
     private String serialNumber;
     private DeliveryStatus status;
-    private LocalDateTime dispatchDate;
-    private LocalDateTime nearestHubDate;
-    private LocalDateTime outForDeliveryDate;
-    private LocalDateTime deliveryDate;
-    private LocalDateTime returnExpireDate;
-    private LocalDateTime returnClaimDate;
+    private LocalDate dispatchDate;
+    private LocalTime dispatchTime;
+    private LocalDate nearestHubDate;
+    private LocalTime nearestHubTime;
+    private LocalDate outForDeliveryDate;
+    private LocalTime outForDeliveryTime;
+    private LocalDate deliveryDate;
+    private LocalTime deliveryTime;
+    private LocalDate returnExpireDate;
+    private LocalTime returnExpireTime;
+    private LocalDate returnClaimDate;
+    private LocalTime returnClaimTime;
     private Boolean isReturnAccepted;
-    private LocalDateTime returnAcceptedDate;
-    private LocalDateTime returnPickUpDate;
-    private LocalDateTime refundDate;
+    private LocalDate returnAcceptedDate;
+    private LocalTime returnAcceptedTime;
+    private LocalDate returnPickUpDate;
+    private LocalTime returnPickUpTime;
+    private LocalDate refundDate;
+    private LocalTime refundTime;
 
     @ManyToOne
     @JoinColumn(name = "product_supplier_id")

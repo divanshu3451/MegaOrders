@@ -4,7 +4,8 @@ import com.megaorders.models.enums.PaymentMode;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,8 @@ public class PaymentDetail {
     private String upiId;
     private String bankName;
     private String bankAccountNumber;
-    private LocalDateTime createdAt;
+    private LocalDate createdDate;
+    private LocalTime createdTime;
     private Boolean isSavedDetail;
 
     @Enumerated(EnumType.STRING)

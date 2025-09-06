@@ -3,7 +3,8 @@ package com.megaorders.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -18,7 +19,8 @@ public class ProductSellingPriceHistory {
     private Long id;
     private Double priceUpdateTo;
     private Double priceUpdateFrom;
-    private LocalDateTime updatedAt;
+    private LocalDate updatedDate;
+    private LocalTime updatedTime;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
