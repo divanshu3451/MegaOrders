@@ -1,11 +1,14 @@
 package com.megaorders.services.dummy;
 
+import com.megaorders.dtos.dummy.ProductCategoryCsvDTO;
 import com.megaorders.dtos.dummy.SupplierCsvDTO;
 import com.megaorders.dtos.dummy.UserCsvDTO;
 import com.megaorders.dtos.dummy.VendorCsvDTO;
+import com.megaorders.models.ProductCategory;
 import com.megaorders.models.Supplier;
 import com.megaorders.models.User;
 import com.megaorders.models.Vendor;
+import com.megaorders.repositories.ProductCategoryRepository;
 import com.megaorders.repositories.SupplierRepository;
 import com.megaorders.repositories.UserRepository;
 import com.megaorders.repositories.VendorRepository;
@@ -37,15 +40,17 @@ public class DataLoaderService implements CommandLineRunner {
     private final ModelMapper modelMapper;
     private final VendorRepository vendorRepository;
     private final SupplierRepository supplierRepository;
+    private final ProductCategoryRepository productCategoryRepository;
 
 
     @Autowired
-    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, VendorRepository vendorRepository, SupplierRepository supplierRepository) {
+    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, VendorRepository vendorRepository, SupplierRepository supplierRepository, ProductCategoryRepository productCategoryRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
         this.vendorRepository = vendorRepository;
         this.supplierRepository = supplierRepository;
+        this.productCategoryRepository = productCategoryRepository;
     }
 
     @Override
@@ -59,6 +64,9 @@ public class DataLoaderService implements CommandLineRunner {
         log.info("Loading dummy supplier data from CSV...");
         loadSuppliersFromCsv();
         log.info("Dummy supplier data loading completed.");
+        log.info("Loading dummy product category data from CSV...");
+        loadProductCategoriesFromCsv();
+        log.info("Dummy product category data loading completed.");
     }
 
     private void loadUsersFromCsv() {
@@ -159,6 +167,36 @@ public class DataLoaderService implements CommandLineRunner {
 
         } catch (Exception e) {
             log.error("Error loading suppliers from CSV: {}", e.getMessage());
+        }
+    }
+
+    private void loadProductCategoriesFromCsv() {
+        try {
+            ClassPathResource resource = new ClassPathResource("data/product_categories.csv");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+
+            CsvToBean<ProductCategoryCsvDTO> csvToBean = new CsvToBeanBuilder<ProductCategoryCsvDTO>(reader)
+                    .withType(ProductCategoryCsvDTO.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .build();
+
+            List<ProductCategoryCsvDTO> categoryCsvDTOs = csvToBean.parse();
+
+            for (ProductCategoryCsvDTO dto : categoryCsvDTOs) {
+                Optional<ProductCategory> existingCategory = productCategoryRepository.findByName(dto.getName());
+                if (existingCategory.isEmpty()) {
+                    ProductCategory category = new ProductCategory();
+                    category.setName(dto.getName());
+                    category.setDescription(dto.getDescription());
+                    productCategoryRepository.save(category);
+                    log.info("Inserted new product category: {}", dto.getName());
+                } else {
+                    log.info("Product category already exists, skipping: {}", dto.getName());
+                }
+            }
+
+        } catch (Exception e) {
+            log.error("Error loading product categories from CSV: {}", e.getMessage());
         }
     }
 }
