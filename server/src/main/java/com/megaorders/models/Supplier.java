@@ -13,11 +13,13 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "supplier")
+@Table(name = "supplier", indexes = {@Index(name = "idx_supplier_lincense_number", columnList = "license_number")})
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
     private String licenseNumber;
 
     @Enumerated(EnumType.STRING)

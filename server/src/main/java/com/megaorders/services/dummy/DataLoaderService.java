@@ -1,9 +1,12 @@
 package com.megaorders.services.dummy;
 
+import com.megaorders.dtos.dummy.SupplierCsvDTO;
 import com.megaorders.dtos.dummy.UserCsvDTO;
 import com.megaorders.dtos.dummy.VendorCsvDTO;
+import com.megaorders.models.Supplier;
 import com.megaorders.models.User;
 import com.megaorders.models.Vendor;
+import com.megaorders.repositories.SupplierRepository;
 import com.megaorders.repositories.UserRepository;
 import com.megaorders.repositories.VendorRepository;
 import com.opencsv.bean.CsvToBean;
@@ -33,13 +36,16 @@ public class DataLoaderService implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
     private final VendorRepository vendorRepository;
+    private final SupplierRepository supplierRepository;
+
 
     @Autowired
-    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, VendorRepository vendorRepository) {
+    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, VendorRepository vendorRepository, SupplierRepository supplierRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
         this.vendorRepository = vendorRepository;
+        this.supplierRepository = supplierRepository;
     }
 
     @Override
@@ -50,6 +56,9 @@ public class DataLoaderService implements CommandLineRunner {
         log.info("Loading dummy vendor data from CSV...");
         loadVendorsFromCsv();
         log.info("Dummy vendor data loading completed.");
+        log.info("Loading dummy supplier data from CSV...");
+        loadSuppliersFromCsv();
+        log.info("Dummy supplier data loading completed.");
     }
 
     private void loadUsersFromCsv() {
@@ -112,9 +121,44 @@ public class DataLoaderService implements CommandLineRunner {
                     log.info("Vendor already exists for user, skipping: {}", dto.getEmail());
                 }
             }
-
         } catch (Exception e) {
             log.error("Error loading vendors from CSV: {}", e.getMessage());
+        }
+    }
+
+    private void loadSuppliersFromCsv() {
+        try {
+            ClassPathResource resource = new ClassPathResource("data/suppliers.csv");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+
+            CsvToBean<SupplierCsvDTO> csvToBean = new CsvToBeanBuilder<SupplierCsvDTO>(reader)
+                    .withType(SupplierCsvDTO.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .build();
+
+            List<SupplierCsvDTO> supplierCsvDTOs = csvToBean.parse();
+
+            for (SupplierCsvDTO dto : supplierCsvDTOs) {
+                Optional<Supplier> existingSupplier = supplierRepository.findByLicenseNumber(dto.getLicenseNumber());
+                if (existingSupplier.isEmpty()) {
+                    Optional<User> user = userRepository.findByEmail(dto.getEmail());
+                    if (user.isPresent()) {
+                        Supplier supplier = new Supplier();
+                        supplier.setUser(user.get());
+                        supplier.setLicenseNumber(dto.getLicenseNumber());
+                        supplier.setSupplierType(dto.getSupplierType());
+                        supplierRepository.save(supplier);
+                        log.info("Inserted new supplier for user: {}", dto.getEmail());
+                    } else {
+                        log.warn("User not found for supplier: {}", dto.getEmail());
+                    }
+                } else {
+                    log.info("Supplier already exists for user, skipping: {}", dto.getEmail());
+                }
+            }
+
+        } catch (Exception e) {
+            log.error("Error loading suppliers from CSV: {}", e.getMessage());
         }
     }
 }
