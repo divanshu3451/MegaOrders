@@ -6,7 +6,9 @@ import com.megaorders.dtos.dummy.UserCsvDTO;
 import com.megaorders.dtos.dummy.VendorCsvDTO;
 import com.megaorders.dtos.dummy.ProductCsvDTO;
 import com.megaorders.dtos.dummy.ProductSupplierCsvDTO;
+import com.megaorders.dtos.dummy.ItemCsvDTO;
 import com.megaorders.models.ProductCategory;
+import com.megaorders.models.Item;
 import com.megaorders.models.Supplier;
 import com.megaorders.models.ProductSupplier;
 import com.megaorders.models.User;
@@ -44,9 +46,10 @@ public class DataLoaderService implements CommandLineRunner {
     private final ProductCategoryRepository productCategoryRepository;
     private final ProductRepository productRepository;
     private final ProductSupplierRepository productSupplierRepository;
+    private final ItemRepository itemRepository;
 
     @Autowired
-    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, VendorRepository vendorRepository, SupplierRepository supplierRepository, ProductCategoryRepository productCategoryRepository, ProductRepository productRepository, ProductSupplierRepository productSupplierRepository) {
+    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, VendorRepository vendorRepository, SupplierRepository supplierRepository, ProductCategoryRepository productCategoryRepository, ProductRepository productRepository, ProductSupplierRepository productSupplierRepository, ItemRepository itemRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
@@ -55,6 +58,7 @@ public class DataLoaderService implements CommandLineRunner {
         this.productCategoryRepository = productCategoryRepository;
         this.productRepository = productRepository;
         this.productSupplierRepository = productSupplierRepository;
+        this.itemRepository = itemRepository;
     }
 
     @Override
@@ -77,6 +81,9 @@ public class DataLoaderService implements CommandLineRunner {
         log.info("Loading dummy product supplier data from CSV...");
         loadProductSuppliersFromCsv();
         log.info("Dummy product supplier data loading completed.");
+        log.info("Loading dummy items data from CSV...");
+        loadItemsFromCsv();
+        log.info("Dummy items data loading completed.");
     }
 
     private void loadUsersFromCsv() {
@@ -287,6 +294,63 @@ public class DataLoaderService implements CommandLineRunner {
             }
         } catch (Exception e) {
             log.error("Error loading product suppliers from CSV: {}", e.getMessage());
+        }
+    }
+
+    private void loadItemsFromCsv() {
+        try {
+            ClassPathResource resource = new ClassPathResource("data/items.csv");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+
+            CsvToBean<ItemCsvDTO> csvToBean = new CsvToBeanBuilder<ItemCsvDTO>(reader)
+                    .withType(ItemCsvDTO.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .build();
+
+            List<ItemCsvDTO> itemCsvDTOs = csvToBean.parse();
+
+            for (ItemCsvDTO dto : itemCsvDTOs) {
+                if (dto.getImeiNumber().equals("")) {
+                    dto.setImeiNumber(null);
+                }
+                Optional<Item> existingItem = itemRepository.findBySerialNumber(dto.getSerialNumber());
+                if (existingItem.isEmpty()) {
+                    Optional<ProductCategory> category = productCategoryRepository.findByName(dto.getCategoryName());
+                    if (category.isPresent()) {
+                        Optional<Product> productOpt = productRepository.findByNameAndCategory(dto.getProductName(), category.get());
+                        Optional<Supplier> supplierOpt = supplierRepository.findByLicenseNumber(dto.getSupplierLicenseNumber());
+
+                        if (productOpt.isPresent() && supplierOpt.isPresent()) {
+                            Product product = productOpt.get();
+                            Supplier supplier = supplierOpt.get();
+
+                            Optional<ProductSupplier> productSupplierOpt = productSupplierRepository.findByProductAndSupplier(product, supplier);
+                            if (productSupplierOpt.isPresent()) {
+                                ProductSupplier productSupplier = productSupplierOpt.get();
+
+                                Item item = modelMapper.map(dto, Item.class);
+                                product.addItem(item);
+                                productSupplier.addItem(item);
+//                                item.setOrderProduct(null); // Set to null for inventory items
+
+                                itemRepository.save(item);
+                                log.info("Inserted new item: {}", dto.getSerialNumber());
+                            } else {
+                                log.warn("ProductSupplier not found for item: {} - {} ({}) - {}", dto.getSerialNumber(), dto.getProductName(), dto.getCategoryName(), dto.getSupplierLicenseNumber());
+                            }
+                        } else {
+                            log.warn("Product or Supplier not found for item: {} - {} ({}) - {}", dto.getSerialNumber(), dto.getProductName(), dto.getCategoryName(), dto.getSupplierLicenseNumber());
+                        }
+                    } else {
+                        log.warn("Category not found for item: {} - {}", dto.getSerialNumber(), dto.getCategoryName());
+                    }
+                } else {
+                    log.info("Item already exists, skipping: {}", dto.getSerialNumber());
+                }
+            }
+
+        } catch (Exception e) {
+            log.error("Error loading items from CSV: {}", e.getMessage());
         }
     }
 
