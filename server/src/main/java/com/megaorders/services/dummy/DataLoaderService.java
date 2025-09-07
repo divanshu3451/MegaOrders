@@ -1,6 +1,7 @@
 package com.megaorders.services.dummy;
 
 import com.megaorders.dtos.dummy.ProductCategoryCsvDTO;
+import com.megaorders.dtos.dummy.PaymentDetailsCsvDTO;
 import com.megaorders.dtos.dummy.SupplierCsvDTO;
 import com.megaorders.dtos.dummy.UserCsvDTO;
 import com.megaorders.dtos.dummy.VendorCsvDTO;
@@ -8,12 +9,14 @@ import com.megaorders.dtos.dummy.ProductCsvDTO;
 import com.megaorders.dtos.dummy.ProductSupplierCsvDTO;
 import com.megaorders.dtos.dummy.ItemCsvDTO;
 import com.megaorders.models.ProductCategory;
+import com.megaorders.models.PaymentDetail;
 import com.megaorders.models.Item;
 import com.megaorders.models.Supplier;
 import com.megaorders.models.ProductSupplier;
 import com.megaorders.models.User;
 import com.megaorders.models.Vendor;
 import com.megaorders.models.Product;
+import com.megaorders.models.enums.PaymentMode;
 import com.megaorders.repositories.*;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -47,9 +50,10 @@ public class DataLoaderService implements CommandLineRunner {
     private final ProductRepository productRepository;
     private final ProductSupplierRepository productSupplierRepository;
     private final ItemRepository itemRepository;
+    private final PaymentDetailRepository paymentDetailRepository;
 
     @Autowired
-    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, VendorRepository vendorRepository, SupplierRepository supplierRepository, ProductCategoryRepository productCategoryRepository, ProductRepository productRepository, ProductSupplierRepository productSupplierRepository, ItemRepository itemRepository) {
+    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, VendorRepository vendorRepository, SupplierRepository supplierRepository, ProductCategoryRepository productCategoryRepository, ProductRepository productRepository, ProductSupplierRepository productSupplierRepository, ItemRepository itemRepository, PaymentDetailRepository paymentDetailRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
@@ -59,6 +63,7 @@ public class DataLoaderService implements CommandLineRunner {
         this.productRepository = productRepository;
         this.productSupplierRepository = productSupplierRepository;
         this.itemRepository = itemRepository;
+        this.paymentDetailRepository = paymentDetailRepository;
     }
 
     @Override
@@ -84,6 +89,9 @@ public class DataLoaderService implements CommandLineRunner {
         log.info("Loading dummy items data from CSV...");
         loadItemsFromCsv();
         log.info("Dummy items data loading completed.");
+        log.info("Loading dummy payment detail data from CSV...");
+        loadPaymentDetailsFromCsv();
+        log.info("Dummy payment detail data loading completed.");
     }
 
     private void loadUsersFromCsv() {
@@ -351,6 +359,45 @@ public class DataLoaderService implements CommandLineRunner {
 
         } catch (Exception e) {
             log.error("Error loading items from CSV: {}", e.getMessage());
+        }
+    }
+
+    private void loadPaymentDetailsFromCsv() {
+        try {
+            ClassPathResource resource = new ClassPathResource("data/payment_details.csv");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+
+            CsvToBean<PaymentDetailsCsvDTO> csvToBean = new CsvToBeanBuilder<PaymentDetailsCsvDTO>(reader)
+                    .withType(PaymentDetailsCsvDTO.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .build();
+
+            List<PaymentDetailsCsvDTO> paymentDetailCsvDTOs = csvToBean.parse();
+
+            for (PaymentDetailsCsvDTO dto : paymentDetailCsvDTOs) {
+                Optional<User> userOpt = userRepository.findByEmail(dto.getEmail());
+                if (userOpt.isPresent()) {
+                    User user = userOpt.get();
+                    Optional<PaymentDetail> existing = Optional.empty();
+                    if (dto.getPaymentMode() == PaymentMode.UPI) {
+                        existing = paymentDetailRepository.findByUpiId(dto.getUpiId());
+                    }
+                    if (dto.getPaymentMode() == PaymentMode.CREDIT_CARD || dto.getPaymentMode() == PaymentMode.DEBIT_CARD) {
+                        existing = paymentDetailRepository.findByCardNumber(dto.getCardNumber());
+                    }
+                    if (dto.getPaymentMode() == PaymentMode.NET_BANKING) {
+                        existing = paymentDetailRepository.findByBankAccountNumber(dto.getBankAccountNumber());
+                    }
+                    if (existing.isEmpty()) {
+                        PaymentDetail paymentDetail = modelMapper.map(dto, PaymentDetail.class);
+                        user.addPaymentDetail(paymentDetail);
+                        paymentDetailRepository.save(paymentDetail);
+                        log.info("Inserted new item: {}");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error("Error loading payment details from CSV: {}", e.getMessage());
         }
     }
 
