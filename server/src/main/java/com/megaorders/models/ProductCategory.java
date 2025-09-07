@@ -37,4 +37,17 @@ public class ProductCategory {
         product.setCategory(null);
         return this.products.remove(product);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ProductCategory that = (ProductCategory) obj;
+        if (name == null) {
+            return that.name == null;
+        } else {
+            return name.equals(that.name);
+        }
+    }
+
 }
