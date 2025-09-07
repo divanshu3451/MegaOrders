@@ -4,14 +4,13 @@ import com.megaorders.dtos.dummy.ProductCategoryCsvDTO;
 import com.megaorders.dtos.dummy.SupplierCsvDTO;
 import com.megaorders.dtos.dummy.UserCsvDTO;
 import com.megaorders.dtos.dummy.VendorCsvDTO;
+import com.megaorders.dtos.dummy.ProductCsvDTO;
 import com.megaorders.models.ProductCategory;
 import com.megaorders.models.Supplier;
 import com.megaorders.models.User;
 import com.megaorders.models.Vendor;
-import com.megaorders.repositories.ProductCategoryRepository;
-import com.megaorders.repositories.SupplierRepository;
-import com.megaorders.repositories.UserRepository;
-import com.megaorders.repositories.VendorRepository;
+import com.megaorders.models.Product;
+import com.megaorders.repositories.*;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import lombok.NoArgsConstructor;
@@ -41,16 +40,17 @@ public class DataLoaderService implements CommandLineRunner {
     private final VendorRepository vendorRepository;
     private final SupplierRepository supplierRepository;
     private final ProductCategoryRepository productCategoryRepository;
-
+    private final ProductRepository productRepository;
 
     @Autowired
-    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, VendorRepository vendorRepository, SupplierRepository supplierRepository, ProductCategoryRepository productCategoryRepository) {
+    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, VendorRepository vendorRepository, SupplierRepository supplierRepository, ProductCategoryRepository productCategoryRepository, ProductRepository productRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
         this.vendorRepository = vendorRepository;
         this.supplierRepository = supplierRepository;
         this.productCategoryRepository = productCategoryRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -67,6 +67,9 @@ public class DataLoaderService implements CommandLineRunner {
         log.info("Loading dummy product category data from CSV...");
         loadProductCategoriesFromCsv();
         log.info("Dummy product category data loading completed.");
+        log.info("Loading dummy product data from CSV...");
+        loadProductsFromCsv();
+        log.info("Dummy product data loading completed.");
     }
 
     private void loadUsersFromCsv() {
@@ -199,4 +202,40 @@ public class DataLoaderService implements CommandLineRunner {
             log.error("Error loading product categories from CSV: {}", e.getMessage());
         }
     }
+
+    private void loadProductsFromCsv() {
+        try {
+            ClassPathResource resource = new ClassPathResource("data/products.csv");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+
+            CsvToBean<ProductCsvDTO> csvToBean = new CsvToBeanBuilder<ProductCsvDTO>(reader)
+                    .withType(ProductCsvDTO.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .build();
+
+            List<ProductCsvDTO> productCsvDTOs = csvToBean.parse();
+
+            for (ProductCsvDTO dto : productCsvDTOs) {
+                Optional<ProductCategory> category = productCategoryRepository.findByName(dto.getCategoryName());
+                if (category.isPresent()) {
+                    Optional<Product> existingProduct = productRepository.findByNameAndCategory(dto.getName(), category.get());
+                    if (existingProduct.isEmpty()) {
+                        Product product = modelMapper.map(dto, Product.class);
+                        product.setScore(0L); // Default value
+                        product.setScoreResetInDays(30L); // Default value
+                        productRepository.save(product);
+                        log.info("Inserted new product: {}", dto.getName());
+                    } else {
+                        log.warn("Category not found for product: {}", dto.getCategoryName());
+                    }
+                } else {
+                    log.info("Product already exists, skipping: {}", dto.getName());
+                }
+            }
+
+        } catch (Exception e) {
+            log.error("Error loading products from CSV: {}", e.getMessage());
+        }
+    }
+
 }

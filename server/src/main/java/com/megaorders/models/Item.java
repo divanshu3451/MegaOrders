@@ -52,4 +52,8 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "order_product_id")
     private OrderProduct orderProduct;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

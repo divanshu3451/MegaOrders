@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "product")
+@Table(name = "product", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "category_id"}))
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,6 +66,9 @@ public class Product {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ProductSellingPriceHistory> productSellingPrices = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Item> items = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
