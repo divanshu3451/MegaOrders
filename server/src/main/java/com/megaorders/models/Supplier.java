@@ -31,4 +31,14 @@ public class Supplier {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplier", orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ProductSupplier> products = new ArrayList<>();
+
+    public Boolean addProductSupplier(ProductSupplier productSupplier) {
+        productSupplier.setSupplier(this);
+        return this.products.add(productSupplier);
+    }
+
+    public Boolean removeProductSupplier(ProductSupplier productSupplier) {
+        productSupplier.setSupplier(null);
+        return this.products.remove(productSupplier);
+    }
 }

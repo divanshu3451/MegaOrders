@@ -223,7 +223,9 @@ public class DataLoaderService implements CommandLineRunner {
                         Product product = modelMapper.map(dto, Product.class);
                         product.setScore(0L); // Default value
                         product.setScoreResetInDays(30L); // Default value
+                        category.get().addProduct(product);
                         productRepository.save(product);
+
                         log.info("Inserted new product: {}", dto.getName());
                     } else {
                         log.warn("Category not found for product: {}", dto.getCategoryName());

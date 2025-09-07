@@ -41,4 +41,14 @@ public class PaymentDetail {
 
     @OneToMany(mappedBy = "paymentDetail", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
+
+    public Boolean addOrder(Order order) {
+        order.setPaymentDetail(this);
+        return this.orders.add(order);
+    }
+
+    public Boolean removeOrder(Order order) {
+        order.setPaymentDetail(null);
+        return this.orders.remove(order);
+    }
 }

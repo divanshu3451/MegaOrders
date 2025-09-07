@@ -31,4 +31,14 @@ public class StockHistory {
 
     @OneToOne(mappedBy = "stockDetail", cascade = CascadeType.ALL, orphanRemoval = true)
     private LiveStock liveStock;
+
+    public void addLiveStock(LiveStock liveStock) {
+        liveStock.setStockDetail(this);
+        this.liveStock = liveStock;
+    }
+
+    public void removeLiveStock(LiveStock liveStock) {
+        liveStock.setStockDetail(null);
+        this.liveStock = null;
+    }
 }

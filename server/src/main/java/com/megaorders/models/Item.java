@@ -24,6 +24,8 @@ public class Item {
 
     @Column(unique = true)
     private String serialNumber;
+
+    @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
     private LocalDate dispatchDate;
     private LocalTime dispatchTime;
@@ -44,6 +46,9 @@ public class Item {
     private LocalTime returnPickUpTime;
     private LocalDate refundDate;
     private LocalTime refundTime;
+
+    @Column(unique = true)
+    private String imeiNumber;
 
     @ManyToOne
     @JoinColumn(name = "product_supplier_id")

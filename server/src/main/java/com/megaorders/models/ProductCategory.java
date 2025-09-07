@@ -27,4 +27,14 @@ public class ProductCategory {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
+
+    public Boolean addProduct(Product product) {
+        product.setCategory(this);
+        return this.products.add(product);
+    }
+
+    public Boolean removeProduct(Product product) {
+        product.setCategory(null);
+        return this.products.remove(product);
+    }
 }
