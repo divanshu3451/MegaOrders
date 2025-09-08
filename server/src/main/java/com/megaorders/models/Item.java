@@ -1,5 +1,7 @@
 package com.megaorders.models;
 
+import com.megaorders.models.embeddables.DeliveryInfo;
+import com.megaorders.models.embeddables.ReturnInfo;
 import com.megaorders.models.enums.DeliveryStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,25 +29,12 @@ public class Item {
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
-    private LocalDate dispatchDate;
-    private LocalTime dispatchTime;
-    private LocalDate nearestHubDate;
-    private LocalTime nearestHubTime;
-    private LocalDate outForDeliveryDate;
-    private LocalTime outForDeliveryTime;
-    private LocalDate deliveryDate;
-    private LocalTime deliveryTime;
-    private LocalDate returnExpireDate;
-    private LocalTime returnExpireTime;
-    private LocalDate returnClaimDate;
-    private LocalTime returnClaimTime;
-    private Boolean isReturnAccepted;
-    private LocalDate returnAcceptedDate;
-    private LocalTime returnAcceptedTime;
-    private LocalDate returnPickUpDate;
-    private LocalTime returnPickUpTime;
-    private LocalDate refundDate;
-    private LocalTime refundTime;
+
+    @Embedded
+    private DeliveryInfo deliveryInfo;
+
+    @Embedded
+    private ReturnInfo returnInfo;
 
     @Column(unique = true)
     private String imeiNumber;

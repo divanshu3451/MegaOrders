@@ -1,26 +1,16 @@
 package com.megaorders.services.dummy;
 
-import com.megaorders.dtos.dummy.ProductCategoryCsvDTO;
-import com.megaorders.dtos.dummy.PaymentDetailsCsvDTO;
-import com.megaorders.dtos.dummy.SupplierCsvDTO;
-import com.megaorders.dtos.dummy.UserCsvDTO;
-import com.megaorders.dtos.dummy.VendorCsvDTO;
-import com.megaorders.dtos.dummy.ProductCsvDTO;
-import com.megaorders.dtos.dummy.ProductSupplierCsvDTO;
-import com.megaorders.dtos.dummy.ItemCsvDTO;
-import com.megaorders.models.ProductCategory;
-import com.megaorders.models.PaymentDetail;
-import com.megaorders.models.Item;
-import com.megaorders.models.Supplier;
-import com.megaorders.models.ProductSupplier;
-import com.megaorders.models.User;
-import com.megaorders.models.Vendor;
-import com.megaorders.models.Product;
+import com.megaorders.dtos.dummy.*;
+import com.megaorders.models.*;
 import com.megaorders.models.enums.PaymentMode;
 import com.megaorders.repositories.*;
+import com.megaorders.utils.FieldUtils;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Optional;
@@ -51,9 +42,10 @@ public class DataLoaderService implements CommandLineRunner {
     private final ProductSupplierRepository productSupplierRepository;
     private final ItemRepository itemRepository;
     private final PaymentDetailRepository paymentDetailRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, VendorRepository vendorRepository, SupplierRepository supplierRepository, ProductCategoryRepository productCategoryRepository, ProductRepository productRepository, ProductSupplierRepository productSupplierRepository, ItemRepository itemRepository, PaymentDetailRepository paymentDetailRepository) {
+    public DataLoaderService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, VendorRepository vendorRepository, SupplierRepository supplierRepository, ProductCategoryRepository productCategoryRepository, ProductRepository productRepository, ProductSupplierRepository productSupplierRepository, ItemRepository itemRepository, PaymentDetailRepository paymentDetailRepository, OrderRepository orderRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
@@ -64,6 +56,7 @@ public class DataLoaderService implements CommandLineRunner {
         this.productSupplierRepository = productSupplierRepository;
         this.itemRepository = itemRepository;
         this.paymentDetailRepository = paymentDetailRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -92,20 +85,14 @@ public class DataLoaderService implements CommandLineRunner {
         log.info("Loading dummy payment detail data from CSV...");
         loadPaymentDetailsFromCsv();
         log.info("Dummy payment detail data loading completed.");
+        log.info("Loading dummy order data from CSV...");
+        loadOrdersFromCsv();
+        log.info("Dummy order data loading completed.");
     }
 
     private void loadUsersFromCsv() {
         try {
-            ClassPathResource resource = new ClassPathResource("data/users.csv");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
-
-            CsvToBean<UserCsvDTO> csvToBean = new CsvToBeanBuilder<UserCsvDTO>(reader)
-                    .withType(UserCsvDTO.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-
-            List<UserCsvDTO> userCsvDTOs = csvToBean.parse();
-
+            List<UserCsvDTO> userCsvDTOs = csvToBeanMapping("data/users.csv", UserCsvDTO.class);
             for (UserCsvDTO dto : userCsvDTOs) {
                 Optional<User> existingUser = userRepository.findByEmail(dto.getEmail());
                 if (existingUser.isEmpty()) {
@@ -117,7 +104,6 @@ public class DataLoaderService implements CommandLineRunner {
                     log.info("User already exists, skipping: {}", dto.getEmail());
                 }
             }
-
         } catch (Exception e) {
             log.error("Error loading users from CSV: {}", e.getMessage());
         }
@@ -125,16 +111,7 @@ public class DataLoaderService implements CommandLineRunner {
 
     private void loadVendorsFromCsv() {
         try {
-            ClassPathResource resource = new ClassPathResource("data/vendors.csv");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
-
-            CsvToBean<VendorCsvDTO> csvToBean = new CsvToBeanBuilder<VendorCsvDTO>(reader)
-                    .withType(VendorCsvDTO.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-
-            List<VendorCsvDTO> vendorCsvDTOs = csvToBean.parse();
-
+            List<VendorCsvDTO> vendorCsvDTOs = csvToBeanMapping("data/vendors.csv", VendorCsvDTO.class);
             for (VendorCsvDTO dto : vendorCsvDTOs) {
                 Optional<Vendor> existingVendor = vendorRepository.findByGstNumber(dto.getGstNumber());
                 if (existingVendor.isEmpty()) {
@@ -161,16 +138,7 @@ public class DataLoaderService implements CommandLineRunner {
 
     private void loadSuppliersFromCsv() {
         try {
-            ClassPathResource resource = new ClassPathResource("data/suppliers.csv");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
-
-            CsvToBean<SupplierCsvDTO> csvToBean = new CsvToBeanBuilder<SupplierCsvDTO>(reader)
-                    .withType(SupplierCsvDTO.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-
-            List<SupplierCsvDTO> supplierCsvDTOs = csvToBean.parse();
-
+            List<SupplierCsvDTO> supplierCsvDTOs = csvToBeanMapping("data/suppliers.csv", SupplierCsvDTO.class);
             for (SupplierCsvDTO dto : supplierCsvDTOs) {
                 Optional<Supplier> existingSupplier = supplierRepository.findByLicenseNumber(dto.getLicenseNumber());
                 if (existingSupplier.isEmpty()) {
@@ -197,15 +165,7 @@ public class DataLoaderService implements CommandLineRunner {
 
     private void loadProductCategoriesFromCsv() {
         try {
-            ClassPathResource resource = new ClassPathResource("data/product_categories.csv");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
-
-            CsvToBean<ProductCategoryCsvDTO> csvToBean = new CsvToBeanBuilder<ProductCategoryCsvDTO>(reader)
-                    .withType(ProductCategoryCsvDTO.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-
-            List<ProductCategoryCsvDTO> categoryCsvDTOs = csvToBean.parse();
+            List<ProductCategoryCsvDTO> categoryCsvDTOs = csvToBeanMapping("data/product_categories.csv", ProductCategoryCsvDTO.class);
 
             for (ProductCategoryCsvDTO dto : categoryCsvDTOs) {
                 Optional<ProductCategory> existingCategory = productCategoryRepository.findByName(dto.getName());
@@ -227,16 +187,7 @@ public class DataLoaderService implements CommandLineRunner {
 
     private void loadProductsFromCsv() {
         try {
-            ClassPathResource resource = new ClassPathResource("data/products.csv");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
-
-            CsvToBean<ProductCsvDTO> csvToBean = new CsvToBeanBuilder<ProductCsvDTO>(reader)
-                    .withType(ProductCsvDTO.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-
-            List<ProductCsvDTO> productCsvDTOs = csvToBean.parse();
-
+            List<ProductCsvDTO> productCsvDTOs = csvToBeanMapping("data/products.csv", ProductCsvDTO.class);
             for (ProductCsvDTO dto : productCsvDTOs) {
                 Optional<ProductCategory> category = productCategoryRepository.findByName(dto.getCategoryName());
                 if (category.isPresent()) {
@@ -264,15 +215,7 @@ public class DataLoaderService implements CommandLineRunner {
 
     private void loadProductSuppliersFromCsv() {
         try {
-            ClassPathResource resource = new ClassPathResource("data/product_suppliers.csv");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
-
-            CsvToBean<ProductSupplierCsvDTO> csvToBean = new CsvToBeanBuilder<ProductSupplierCsvDTO>(reader)
-                    .withType(ProductSupplierCsvDTO.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-
-            List<ProductSupplierCsvDTO> productSupplierCsvDTOs = csvToBean.parse();
+            List<ProductSupplierCsvDTO> productSupplierCsvDTOs = csvToBeanMapping("data/product_suppliers.csv", ProductSupplierCsvDTO.class);
 
             for (ProductSupplierCsvDTO dto : productSupplierCsvDTOs) {
                 Optional<ProductCategory> category = productCategoryRepository.findByName(dto.getCategoryName());
@@ -307,20 +250,9 @@ public class DataLoaderService implements CommandLineRunner {
 
     private void loadItemsFromCsv() {
         try {
-            ClassPathResource resource = new ClassPathResource("data/items.csv");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
-
-            CsvToBean<ItemCsvDTO> csvToBean = new CsvToBeanBuilder<ItemCsvDTO>(reader)
-                    .withType(ItemCsvDTO.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-
-            List<ItemCsvDTO> itemCsvDTOs = csvToBean.parse();
-
+            List<ItemCsvDTO> itemCsvDTOs = csvToBeanMapping("data/items.csv", ItemCsvDTO.class);
             for (ItemCsvDTO dto : itemCsvDTOs) {
-                if (dto.getImeiNumber().equals("")) {
-                    dto.setImeiNumber(null);
-                }
+                FieldUtils.replaceEmptyStringsWithNulls(dto);
                 Optional<Item> existingItem = itemRepository.findBySerialNumber(dto.getSerialNumber());
                 if (existingItem.isEmpty()) {
                     Optional<ProductCategory> category = productCategoryRepository.findByName(dto.getCategoryName());
@@ -364,37 +296,28 @@ public class DataLoaderService implements CommandLineRunner {
 
     private void loadPaymentDetailsFromCsv() {
         try {
-            ClassPathResource resource = new ClassPathResource("data/payment_details.csv");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
-
-            CsvToBean<PaymentDetailsCsvDTO> csvToBean = new CsvToBeanBuilder<PaymentDetailsCsvDTO>(reader)
-                    .withType(PaymentDetailsCsvDTO.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-
-            List<PaymentDetailsCsvDTO> paymentDetailCsvDTOs = csvToBean.parse();
-
+            List<PaymentDetailsCsvDTO> paymentDetailCsvDTOs = csvToBeanMapping("data/payment_details.csv", PaymentDetailsCsvDTO.class);
             for (PaymentDetailsCsvDTO dto : paymentDetailCsvDTOs) {
+                FieldUtils.replaceEmptyStringsWithNulls(dto);
                 Optional<User> userOpt = userRepository.findByEmail(dto.getEmail());
-                if (userOpt.isPresent()) {
-                    User user = userOpt.get();
-                    Optional<PaymentDetail> existing = Optional.empty();
-                    if (dto.getPaymentMode() == PaymentMode.UPI) {
-                        existing = paymentDetailRepository.findByUpiId(dto.getUpiId());
-                    }
-                    if (dto.getPaymentMode() == PaymentMode.CREDIT_CARD || dto.getPaymentMode() == PaymentMode.DEBIT_CARD) {
-                        existing = paymentDetailRepository.findByCardNumber(dto.getCardNumber());
-                    }
-                    if (dto.getPaymentMode() == PaymentMode.NET_BANKING) {
-                        existing = paymentDetailRepository.findByBankAccountNumber(dto.getBankAccountNumber());
-                    }
-                    if (existing.isEmpty()) {
-                        PaymentDetail paymentDetail = modelMapper.map(dto, PaymentDetail.class);
-                        user.addPaymentDetail(paymentDetail);
-                        paymentDetailRepository.save(paymentDetail);
-                        log.info("Inserted new item: {}");
-                    }
+
+                if (userOpt.isEmpty()) {
+                    log.warn("User not found for email: {}. Skipping payment detail.", dto.getEmail());
+                    continue;
                 }
+                User user = userOpt.get();
+                Optional<PaymentDetail> existing = Optional.empty();
+                PaymentInfo paymentInfo = modelMapper.map(dto, PaymentInfo.class);
+                existing = getPaymentDetailFromPaymentMode(paymentInfo, existing);
+
+                if (existing.isPresent()) {
+                    log.info("PaymentDetail already exists for user {}. Skipping insertion.", dto.getEmail());
+                    continue;
+                }
+                PaymentDetail paymentDetail = modelMapper.map(dto, PaymentDetail.class);
+                user.addPaymentDetail(paymentDetail);
+                paymentDetailRepository.save(paymentDetail);
+                log.info("Inserted new PaymentDetail for user {}.", dto.getEmail());
             }
         } catch (Exception e) {
             log.error("Error loading payment details from CSV: {}", e.getMessage());
@@ -402,4 +325,65 @@ public class DataLoaderService implements CommandLineRunner {
     }
 
 
+    private void loadOrdersFromCsv() {
+        try {
+            List<OrderCsvDTO> orderCsvDTOs = csvToBeanMapping("data/orders.csv", OrderCsvDTO.class);
+            for (OrderCsvDTO dto : orderCsvDTOs) {
+                FieldUtils.replaceEmptyStringsWithNulls(dto);
+                Optional<User> userOpt = userRepository.findByEmail(dto.getEmail());
+                if (userOpt.isPresent()) {
+                    User user = userOpt.get();
+                    Optional<PaymentDetail> paymentDetailOpt = Optional.empty();
+                    PaymentInfo paymentInfo = modelMapper.map(dto, PaymentInfo.class);
+                    paymentDetailOpt = getPaymentDetailFromPaymentMode(paymentInfo, paymentDetailOpt);
+                    if (paymentDetailOpt.isPresent() && orderRepository.findByTransactionId(dto.getTransactionId()).isEmpty()) {
+                        Order order = modelMapper.map(dto, Order.class);
+                        user.addOrder(order);
+                        paymentDetailOpt.get().addOrder(order);
+                        orderRepository.save(order);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error("Error loading orders from CSV: {}", e.getMessage());
+        }
+    }
+
+    private Optional<PaymentDetail> getPaymentDetailFromPaymentMode(PaymentInfo paymentInfo, Optional<PaymentDetail> existing) {
+        if (paymentInfo.getPaymentMode() == PaymentMode.UPI) {
+            existing = paymentDetailRepository.findByUpiId(paymentInfo.getUpiId());
+        }
+        if (paymentInfo.getPaymentMode() == PaymentMode.CREDIT_CARD || paymentInfo.getPaymentMode() == PaymentMode.DEBIT_CARD) {
+            existing = paymentDetailRepository.findByCardNumber(paymentInfo.getCardNumber());
+        }
+        if (paymentInfo.getPaymentMode() == PaymentMode.NET_BANKING) {
+            existing = paymentDetailRepository.findByBankAccountNumber(paymentInfo.getBankAccountNumber());
+        }
+
+        return existing;
+    }
+
+    private <T> List<T> csvToBeanMapping(String path, Class<T> type) throws IOException {
+        ClassPathResource resource = new ClassPathResource(path);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+
+        CsvToBean<T> csvToBean = new CsvToBeanBuilder<T>(reader)
+                .withType(type)
+                .withIgnoreLeadingWhiteSpace(true)
+                .build();
+
+        return csvToBean.parse();
+    }
+
+}
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+class PaymentInfo {
+    private PaymentMode paymentMode;
+    private String upiId;
+    private String cardNumber;
+    private String bankAccountNumber;
 }
