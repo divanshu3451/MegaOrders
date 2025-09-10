@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -19,7 +20,8 @@ public class StockHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime receivedDate;
+    private LocalDate receivedDate;
+    private LocalTime receivedTime;
     private Long receivedQty;
     private Double price;
 
@@ -29,4 +31,14 @@ public class StockHistory {
 
     @OneToOne(mappedBy = "stockDetail", cascade = CascadeType.ALL, orphanRemoval = true)
     private LiveStock liveStock;
+
+    public void addLiveStock(LiveStock liveStock) {
+        liveStock.setStockDetail(this);
+        this.liveStock = liveStock;
+    }
+
+    public void removeLiveStock(LiveStock liveStock) {
+        liveStock.setStockDetail(null);
+        this.liveStock = null;
+    }
 }

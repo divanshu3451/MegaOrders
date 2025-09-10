@@ -3,7 +3,9 @@ package com.megaorders.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 
 @Getter
 @Setter
@@ -16,7 +18,8 @@ public class ReviewUpdateHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime createdAt;
+    private LocalDate createdDate;
+    private LocalTime createdTime;
     private Long rating;
     private String description;
     private Boolean wasAnonymous;

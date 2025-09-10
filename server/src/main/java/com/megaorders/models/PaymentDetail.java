@@ -4,13 +4,13 @@ import com.megaorders.models.enums.PaymentMode;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -19,14 +19,23 @@ public class PaymentDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true)
     private String cardNumber;
     private String cardHolderName;
     private String expirationMonth;
     private String expirationYear;
+
+    @Column(unique = true)
     private String upiId;
-    private String bankName;
+
+    @Column(unique = true)
     private String bankAccountNumber;
-    private LocalDateTime createdAt;
+    private String bankName;
+
+    private LocalDate createdDate;
+    private LocalTime createdTime;
+
     private Boolean isSavedDetail;
 
     @Enumerated(EnumType.STRING)
@@ -39,4 +48,14 @@ public class PaymentDetail {
 
     @OneToMany(mappedBy = "paymentDetail", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
+
+    public Boolean addOrder(Order order) {
+        order.setPaymentDetail(this);
+        return this.orders.add(order);
+    }
+
+    public Boolean removeOrder(Order order) {
+        order.setPaymentDetail(null);
+        return this.orders.remove(order);
+    }
 }

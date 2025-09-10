@@ -1,0 +1,183 @@
+name,currentPrice,sellingPrice,description,status,categoryName,reviewCount,rating,fiveStars,fourStars,threeStars,twoStars,oneStars
+iPhone 15 Pro,999.99,1099.99,"Latest iPhone with advanced features","ACTIVE","Electronics",1250,4.6,875,250,75,25,25
+Samsung Galaxy S24,799.99,899.99,"High-end Android smartphone","ACTIVE","Electronics",980,4.4,637,196,98,29,20
+MacBook Air M3,1199.99,1299.99,"Lightweight laptop with M3 chip","ACTIVE","Electronics",756,4.7,583,127,29,10,7
+Dell XPS 13,899.99,999.99,"Premium ultrabook laptop","ACTIVE","Electronics",543,4.3,324,130,54,20,15
+Sony WH-1000XM5,299.99,349.99,"Noise-cancelling wireless headphones","ACTIVE","Electronics",2100,4.5,1365,525,147,42,21
+Google Pixel 8,699.99,799.99,"Pure Android experience","ACTIVE","Electronics",876,4.2,525,263,70,13,5
+ASUS ROG Laptop,1499.99,1699.99,"Gaming laptop with high performance","ACTIVE","Electronics",654,4.4,392,196,49,13,4
+Apple Watch Series 9,399.99,449.99,"Advanced smartwatch","ACTIVE","Electronics",1234,4.5,864,247,74,37,12
+Bose QuietComfort,279.99,329.99,"Premium noise-cancelling headphones","ACTIVE","Electronics",1876,4.3,1126,563,150,30,7
+Logitech MX Master 3,99.99,119.99,"Wireless mouse for productivity","ACTIVE","Electronics",2345,4.6,1642,469,140,70,24
+Nike Air Max 270,129.99,149.99,"Comfortable running shoes","ACTIVE","Clothing",890,4.2,468,222,133,44,23
+Adidas Ultraboost 23,179.99,199.99,"Performance running shoes","ACTIVE","Clothing",1200,4.4,720,360,84,24,12
+Levi's 501 Jeans,69.99,89.99,"Classic straight fit jeans","ACTIVE","Clothing",1456,4.1,765,436,174,58,23
+H&M Cotton T-Shirt,19.99,24.99,"Basic cotton t-shirt","ACTIVE","Clothing",2340,3.8,936,702,390,234,78
+Zara Summer Dress,49.99,59.99,"Elegant summer dress","ACTIVE","Clothing",678,4.0,271,203,135,54,15
+Uniqlo Merino Wool Sweater,79.99,99.99,"Warm and comfortable sweater","ACTIVE","Clothing",987,4.3,591,296,79,16,5
+Gap Hoodie,39.99,49.99,"Casual hoodie for everyday wear","ACTIVE","Clothing",1456,4.1,765,436,174,58,23
+Tommy Hilfiger Polo,59.99,69.99,"Classic polo shirt","ACTIVE","Clothing",876,4.2,525,263,70,13,5
+Calvin Klein Underwear Set,29.99,39.99,"Comfortable underwear set","ACTIVE","Clothing",1234,4.0,617,370,185,49,13
+Old Navy Joggers,34.99,44.99,"Comfortable jogger pants","ACTIVE","Clothing",1876,4.1,938,563,375,0,0
+IKEA KIVIK Sofa,499.99,599.99,"Comfortable 3-seater sofa","ACTIVE","Home & Garden",432,4.3,259,129,34,8,2
+West Elm Dining Table,799.99,899.99,"Modern dining table for 6","ACTIVE","Home & Garden",287,4.5,201,57,20,6,3
+Philips Air Fryer,99.99,129.99,"Healthy cooking appliance","ACTIVE","Home & Garden",1543,4.6,1070,309,123,31,10
+Bosch Drill Set,149.99,179.99,"Cordless power drill kit","ACTIVE","Home & Garden",876,4.4,571,175,88,26,16
+Wayfair Bookshelf,149.99,179.99,"Modern bookshelf for home","ACTIVE","Home & Garden",654,4.2,392,196,49,13,4
+Casper Mattress,899.99,1099.99,"Memory foam mattress","ACTIVE","Home & Garden",1234,4.5,864,247,74,37,12
+Eureka Vacuum,199.99,249.99,"Powerful upright vacuum","ACTIVE","Home & Garden",987,4.3,591,296,79,16,5
+Sun Joe Lawn Mower,299.99,349.99,"Electric lawn mower","ACTIVE","Home & Garden",756,4.4,453,227,57,14,5
+Home Depot Tool Set,79.99,99.99,"Basic hand tool set","ACTIVE","Home & Garden",1456,4.1,765,436,174,58,23
+The Great Gatsby,12.99,15.99,"Classic American novel","ACTIVE","Books",5432,4.7,3802,1086,325,163,56
+To Kill a Mockingbird,11.99,14.99,"Pulitzer Prize winning novel","ACTIVE","Books",6789,4.8,5421,1094,271,68,35
+Harry Potter Box Set,89.99,109.99,"Complete Harry Potter series","ACTIVE","Books",3456,4.9,3101,311,31,10,3
+Atomic Habits,16.99,19.99,"Book on habit formation","ACTIVE","Books",2341,4.5,1638,468,140,70,25
+The Alchemist,13.99,16.99,"Inspirational novel by Paulo Coelho","ACTIVE","Books",4321,4.6,3025,864,259,129,44
+Sapiens,18.99,21.99,"Brief history of humankind","ACTIVE","Books",3456,4.4,2074,691,345,276,70
+Educated,15.99,18.99,"Memoir by Tara Westover","ACTIVE","Books",2876,4.5,2013,575,230,46,12
+The Subtle Art,14.99,17.99,"Counterintuitive advice","ACTIVE","Books",1987,4.3,1192,397,159,159,80
+Becoming,19.99,22.99,"Michelle Obama's memoir","ACTIVE","Books",4567,4.7,3197,914,274,137,45
+The Midnight Library,16.99,19.99,"Fantasy novel by Matt Haig","ACTIVE","Books",2345,4.4,1407,469,187,187,95
+Wilson Basketball,29.99,39.99,"Official size basketball","ACTIVE","Sports & Outdoors",1234,4.3,740,370,93,23,8
+Yeti Cooler,299.99,349.99,"High-performance cooler","ACTIVE","Sports & Outdoors",987,4.6,691,197,59,30,10
+Patagonia Jacket,199.99,249.99,"Water-resistant hiking jacket","ACTIVE","Sports & Outdoors",654,4.4,392,196,49,13,4
+Fitbit Charge 5,149.99,179.99,"Advanced fitness tracker","ACTIVE","Sports & Outdoors",1876,4.2,938,563,225,112,38
+REI Camping Tent,249.99,299.99,"4-person camping tent","ACTIVE","Sports & Outdoors",876,4.5,613,175,53,26,9
+Peloton Bike,2495.99,2995.99,"Stationary exercise bike","ACTIVE","Sports & Outdoors",543,4.7,380,109,38,13,3
+Under Armour Running Shorts,29.99,39.99,"Lightweight running shorts","ACTIVE","Sports & Outdoors",1456,4.1,765,436,174,58,23
+Columbia Hiking Boots,149.99,179.99,"Durable hiking boots","ACTIVE","Sports & Outdoors",1234,4.3,740,370,123,0,1
+Speedo Swim Goggles,19.99,24.99,"Anti-fog swim goggles","ACTIVE","Sports & Outdoors",1876,4.0,750,563,375,150,38
+Maybelline Mascara,9.99,12.99,"Volumizing mascara","ACTIVE","Beauty & Personal Care",3456,4.1,1728,1037,414,207,70
+The Ordinary Hyaluronic Acid,6.99,8.99,"Hydrating serum","ACTIVE","Beauty & Personal Care",4321,4.3,2593,864,345,86,33
+Cetaphil Cleanser,12.99,15.99,"Gentle facial cleanser","ACTIVE","Beauty & Personal Care",2876,4.4,1726,575,230,230,115
+Oribe Shampoo,49.99,59.99,"Luxury hair care","ACTIVE","Beauty & Personal Care",987,4.7,691,197,59,30,10
+Clinique Moisturizer,39.99,49.99,"Daily facial moisturizer","ACTIVE","Beauty & Personal Care",1456,4.2,874,436,145,0,1
+MAC Lipstick,24.99,29.99,"Long-lasting lipstick","ACTIVE","Beauty & Personal Care",2345,4.3,1407,703,351,187,97
+Neutrogena Sunscreen,14.99,17.99,"SPF 50 sunscreen","ACTIVE","Beauty & Personal Care",3456,4.4,2074,691,345,276,70
+L'Oreal Hair Color,12.99,15.99,"Permanent hair color","ACTIVE","Beauty & Personal Care",1987,4.1,993,596,298,79,21
+Revlon Nail Polish,5.99,7.99,"Quick-dry nail polish","ACTIVE","Beauty & Personal Care",4321,4.0,1728,1296,864,345,88
+Michelin Tires,149.99,179.99,"High-performance car tires","ACTIVE","Automotive",543,4.5,380,109,54,0,0
+Mobil 1 Oil,39.99,49.99,"Synthetic motor oil","ACTIVE","Automotive",1234,4.6,864,247,74,37,12
+Car Vacuum,29.99,39.99,"Portable car vacuum cleaner","ACTIVE","Automotive",876,4.2,438,263,105,53,17
+LED Headlights,79.99,99.99,"Bright LED replacement bulbs","ACTIVE","Automotive",654,4.3,392,196,49,13,4
+AutoZone Battery,129.99,149.99,"Car battery replacement","ACTIVE","Automotive",987,4.4,591,296,79,16,5
+Meguiar's Car Wax,19.99,24.99,"Premium car wax","ACTIVE","Automotive",1456,4.3,874,436,174,58,14
+Armor All Interior Cleaner,9.99,12.99,"Car interior cleaner","ACTIVE","Automotive",2345,4.1,1173,703,469,0,0
+Rain-X Windshield Treatment,14.99,17.99,"Water repellent treatment","ACTIVE","Automotive",1876,4.2,938,563,375,0,0
+STP Oil Filter,12.99,15.99,"Engine oil filter","ACTIVE","Automotive",1234,4.0,617,370,185,49,13
+LEGO Creator Set,49.99,59.99,"Creative building blocks","ACTIVE","Toys & Games",2345,4.7,1642,469,140,70,24
+Nintendo Switch,299.99,349.99,"Handheld gaming console","ACTIVE","Toys & Games",3456,4.8,3101,311,31,10,3
+Hot Wheels Track,19.99,24.99,"Slot car racing set","ACTIVE","Toys & Games",1876,4.4,1126,375,150,150,75
+Barbie Dreamhouse,149.99,179.99,"Doll house playset","ACTIVE","Toys & Games",1234,4.5,864,247,74,37,12
+Fisher-Price Rocking Horse,79.99,99.99,"Classic rocking horse","ACTIVE","Toys & Games",987,4.3,591,296,79,16,5
+Hasbro Monopoly,24.99,29.99,"Classic board game","ACTIVE","Toys & Games",3456,4.6,2419,691,207,103,36
+Mattel Uno Cards,9.99,12.99,"Popular card game","ACTIVE","Toys & Games",4321,4.4,2593,864,345,345,174
+Play-Doh Set,14.99,17.99,"Creative modeling compound","ACTIVE","Toys & Games",1987,4.2,993,596,398,0,0
+Nerf Blaster,29.99,39.99,"Foam dart blaster","ACTIVE","Toys & Games",1456,4.3,874,436,174,58,14
+Purina Dog Food,29.99,39.99,"Premium dog nutrition","ACTIVE","Pet Supplies",3456,4.6,2419,691,207,103,36
+Whisker Litter,19.99,24.99,"Clumping cat litter","ACTIVE","Pet Supplies",2341,4.3,1405,468,234,140,94
+Kong Chew Toy,14.99,17.99,"Durable dog toy","ACTIVE","Pet Supplies",1876,4.4,1126,375,150,150,75
+Bird Cage,79.99,99.99,"Large bird habitat","ACTIVE","Pet Supplies",654,4.5,458,131,39,20,6
+Tetra Fish Food,9.99,12.99,"Tropical fish flakes","ACTIVE","Pet Supplies",1234,4.2,740,370,93,23,8
+Petco Dog Bed,69.99,89.99,"Orthopedic dog bed","ACTIVE","Pet Supplies",987,4.4,591,296,79,16,5
+Fancy Feast Cat Food,24.99,29.99,"Gourmet cat food","ACTIVE","Pet Supplies",1456,4.3,874,436,174,58,14
+Hartz Flea Treatment,19.99,24.99,"Flea and tick treatment","ACTIVE","Pet Supplies",2345,4.1,1173,703,469,0,0
+Aquarium Filter,49.99,59.99,"Power aquarium filter","ACTIVE","Pet Supplies",876,4.5,613,175,53,26,9
+Vitamin D3,9.99,12.99,"Essential vitamin supplement","ACTIVE","Health & Wellness",4321,4.4,2593,864,345,345,174
+Blood Pressure Monitor,49.99,59.99,"Digital BP monitor","ACTIVE","Health & Wellness",1234,4.3,740,370,123,0,1
+Resistance Bands,24.99,29.99,"Exercise resistance bands","ACTIVE","Health & Wellness",1876,4.5,1313,375,150,30,8
+Yoga Mat,19.99,24.99,"Non-slip yoga mat","ACTIVE","Health & Wellness",2345,4.2,1173,703,351,94,24
+Whey Protein Powder,39.99,49.99,"High-quality protein supplement","ACTIVE","Health & Wellness",1456,4.4,874,436,174,58,14
+Foam Roller,24.99,29.99,"Muscle recovery foam roller","ACTIVE","Health & Wellness",987,4.3,591,296,79,16,5
+Massage Gun,89.99,109.99,"Percussion massage device","ACTIVE","Health & Wellness",654,4.6,458,131,39,20,6
+Essential Oil Diffuser,34.99,44.99,"Ultrasonic aromatherapy diffuser","ACTIVE","Health & Wellness",1234,4.4,864,247,74,37,12
+Sleep Mask,14.99,17.99,"Comfortable eye mask","ACTIVE","Health & Wellness",1876,4.1,938,563,375,0,0
+Apple iPad Air,599.99,649.99,"Slim, powerful tablet with Retina display","ACTIVE","Electronics",945,4.6,650,200,60,25,10
+Lenovo ThinkPad X1,1299.99,1399.99,"Business ultrabook with long battery life","ACTIVE","Electronics",834,4.5,567,167,70,20,10
+Canon EOS Rebel T7,499.99,599.99,"Entry-level DSLR camera","ACTIVE","Electronics",532,4.3,320,120,58,20,14
+Kindle Paperwhite,129.99,149.99,"Waterproof e-reader with backlight","ACTIVE","Electronics",2021,4.7,1500,390,99,22,10
+JBL Flip 6 Speaker,99.99,129.99,"Portable Bluetooth speaker","ACTIVE","Electronics",1232,4.5,860,261,69,27,15
+Nest Thermostat,249.99,299.99,"Smart home temperature control","ACTIVE","Electronics",804,4.4,520,201,63,14,6
+Samsung Odyssey Monitor,399.99,499.99,"Curved gaming monitor","ACTIVE","Electronics",342,4.6,255,60,19,5,3
+Roku Streaming Stick 4K,49.99,59.99,"Streaming device for TV","ACTIVE","Electronics",980,4.3,570,270,96,30,14
+GoPro HERO12,449.99,499.99,"Action camera with 5K video","ACTIVE","Electronics",754,4.8,600,100,38,10,6
+Echo Dot 5th Gen,59.99,79.99,"Compact smart speaker","ACTIVE","Electronics",1802,4.5,1168,410,143,47,34
+Garmin Fenix 7,599.99,699.99,"Multi-sport GPS watch","ACTIVE","Electronics",670,4.7,502,120,30,12,6
+Microsoft Surface Pro 9,999.99,1099.99,"2-in-1 detachable laptop","ACTIVE","Electronics",453,4.5,312,90,32,12,7
+LG UltraGear Monitor,349.99,399.99,"High-refresh gaming display","ACTIVE","Electronics",598,4.4,410,143,32,10,3
+TP-Link WiFi 6 Router,119.99,139.99,"Fast, reliable home internet","ACTIVE","Electronics",1275,4.6,890,255,85,30,15
+Beats Studio Buds,149.99,179.99,"Truly wireless earbuds","ACTIVE","Electronics",1102,4.3,702,265,89,31,15
+Sony Alpha a6400,899.99,999.99,"Mirrorless digital camera","ACTIVE","Electronics",430,4.5,300,88,22,13,7
+Kindle Oasis,249.99,279.99,"Premium waterproof e-reader","ACTIVE","Electronics",1522,4.7,1150,262,72,30,8
+DJI Mini SE Drone,399.99,449.99,"Lightweight camera drone","ACTIVE","Electronics",876,4.6,630,167,49,18,12
+Anker Power Bank 20k,49.99,69.99,"High capacity portable charger","ACTIVE","Electronics",1423,4.5,1003,284,78,40,18
+Tile Mate Tracker,24.99,29.99,"Bluetooth item locator","ACTIVE","Electronics",922,4.4,572,202,91,37,20
+Razer DeathAdder V2,49.99,64.99,"Precision gaming mouse","ACTIVE","Electronics",1893,4.7,1473,313,69,23,15
+Instant Pot Pro,129.99,149.99,"10-in-1 multicooker","ACTIVE","Home & Garden",2342,4.8,1780,380,122,40,20
+Dyson V11 Vacuum,699.99,799.99,"Cordless stick vacuum cleaner","ACTIVE","Home & Garden",1455,4.6,980,300,100,45,30
+KitchenAid Artisan Mixer,429.99,499.99,"Classic stand mixer","ACTIVE","Home & Garden",1801,4.9,1594,149,35,14,9
+Brita Water Pitcher,39.99,49.99,"Filtered water jug with LED indicator","ACTIVE","Home & Garden",1324,4.5,918,287,74,25,20
+Ring Video Doorbell 4,199.99,229.99,"Wireless smart doorbell","ACTIVE","Home & Garden",1456,4.4,927,358,100,45,26
+Weber Genesis Grill,949.99,1099.99,"Stainless outdoor gas grill","ACTIVE","Home & Garden",398,4.7,270,85,28,10,5
+Shark Air Purifier,299.99,349.99,"HEPA filter air purifier","ACTIVE","Home & Garden",982,4.6,650,230,68,19,15
+Eufy RoboVac 11S,229.99,279.99,"Slim robot vacuum","ACTIVE","Home & Garden",1345,4.4,810,384,90,41,20
+Cuisinart Coffee Maker,89.99,109.99,"Programmable coffee machine","ACTIVE","Home & Garden",1650,4.5,1130,381,90,30,19
+Dyson Pure Cool Fan,399.99,499.99,"Advanced air purifying fan","ACTIVE","Home & Garden",721,4.6,532,122,44,17,6
+Philips Wake-up Light,119.99,139.99,"Natural sunrise alarm clock","ACTIVE","Home & Garden",834,4.3,493,201,92,32,16
+King Koil Mattress,799.99,899.99,"Hybrid memory foam mattress","ACTIVE","Home & Garden",614,4.5,414,137,38,17,8
+Govee Smart Lights,69.99,79.99,"Customizable LED home lighting","ACTIVE","Home & Garden",985,4.4,588,255,97,28,17
+Simplehuman Trash Can,129.99,149.99,"Fingerprint-proof steel bin","ACTIVE","Home & Garden",323,4.6,232,64,18,6,3
+Theragun Mini,199.99,219.99,"Portable muscle therapy device","ACTIVE","Health & Wellness",703,4.6,520,123,40,12,8
+Omron Pedometer,19.99,24.99,"Step tracker with large screen","ACTIVE","Health & Wellness",1032,4.4,654,247,86,33,12
+Philips Sonicare 9900,189.99,229.99,"Smart electric toothbrush","ACTIVE","Health & Wellness",1341,4.7,1061,170,83,18,9
+Peloton Tread,2999.99,3299.99,"Commercial-grade treadmill","ACTIVE","Health & Wellness",245,4.8,189,38,10,5,3
+Bowflex Adjustable Dumbbells,399.99,449.99,"Space-saving hand weights","ACTIVE","Health & Wellness",921,4.7,624,201,63,21,12
+Nutribullet Blender Pro,119.99,129.99,"High-speed smoothie maker","ACTIVE","Health & Wellness",1205,4.5,869,235,67,21,13
+Gaiam Yoga Ball,29.99,34.99,"Anti-burst stability ball","ACTIVE","Health & Wellness",803,4.3,494,211,62,20,16
+Thermomix TM6,1499.99,1599.99,"All-in-one kitchen appliance","ACTIVE","Home & Garden",102,4.6,79,16,5,1,1
+Mi Band 8,59.99,69.99,"Budget smart fitness tracker","ACTIVE","Health & Wellness",1324,4.4,811,302,155,43,13
+Hydro Flask Bottle,44.99,54.99,"Insulated stainless steel water bottle","ACTIVE","Sports & Outdoors",2341,4.8,1804,379,106,32,20
+On Running Shoes,159.99,179.99,"Lightweight athletic sneakers","ACTIVE","Clothing",965,4.6,665,210,58,18,14
+L.L.Bean Duck Boots,139.99,159.99,"Iconic all-weather boots","ACTIVE","Clothing",998,4.5,667,231,70,18,12
+Fossil Gen 6 Smartwatch,299.99,319.99,"Stylish smart wearable","ACTIVE","Electronics",546,4.3,319,140,54,20,13
+Le Creuset Dutch Oven,329.99,389.99,"Enamelled cast iron cookware","ACTIVE","Home & Garden",1245,4.8,1054,145,32,10,4
+Osprey Hiking Backpack,199.99,219.99,"Spacious outdoor backpack","ACTIVE","Sports & Outdoors",842,4.7,591,185,46,12,8
+Patagonia Nano Puff,219.99,239.99,"Warm, lightweight jacket","ACTIVE","Clothing",921,4.7,722,132,50,12,5
+REI Sleeping Bag,149.99,169.99,"3-season insulated sleeping bag","ACTIVE","Sports & Outdoors",623,4.5,412,131,52,18,10
+Black Diamond Headlamp,49.99,59.99,"LED headlamp for camping","ACTIVE","Sports & Outdoors",1132,4.6,890,176,43,16,7
+CamelBak Eddy+,24.99,29.99,"Spill-proof water bottle","ACTIVE","Sports & Outdoors",1642,4.5,1134,356,90,38,24
+Arc'teryx Beanie,39.99,49.99,"Premium outdoor hat","ACTIVE","Clothing",433,4.8,344,64,19,4,2
+North Face Rain Jacket,99.99,129.99,"Waterproof shell for all seasons","ACTIVE","Clothing",1588,4.6,1152,312,82,24,18
+Brooks Ghost 15,139.99,159.99,"Popular cushioned running shoes","ACTIVE","Clothing",950,4.6,642,204,64,25,15
+Under Armour Cap,29.99,39.99,"Moisture-wicking adjustable hat","ACTIVE","Clothing",795,4.4,472,199,65,38,21
+Champion Joggers,44.99,59.99,"Comfy athletic pants","ACTIVE","Clothing",1458,4.5,924,381,113,28,12
+Timex Expedition Watch,59.99,79.99,"Rugged outdoor watch","ACTIVE","Accessories",388,4.5,255,90,26,10,7
+Ray-Ban Clubmaster,149.99,179.99,"Retro classic sunglasses","ACTIVE","Accessories",764,4.8,601,111,35,10,7
+Fjallraven Kanken,89.99,99.99,"Trendy, durable backpack","ACTIVE","Accessories",1539,4.7,1205,225,66,22,21
+Herschel Wallet,29.99,39.99,"Slim bi-fold wallet","ACTIVE","Accessories",1023,4.4,622,245,91,43,22
+Samsonite Luggage Set,299.99,349.99,"Hardside 3-piece set","ACTIVE","Home & Garden",539,4.6,419,92,18,6,4
+Apple MagSafe Charger,39.99,49.99,"Magnetic wireless charger","ACTIVE","Electronics",1352,4.6,890,289,108,38,27
+Belkin Surge Protector,24.99,29.99,"12-outlet power strip","ACTIVE","Electronics",1153,4.4,723,263,104,41,22
+WD External Drive,129.99,149.99,"5TB portable storage","ACTIVE","Electronics",951,4.7,751,122,48,19,11
+Logitech C920 Webcam,79.99,99.99,"HD video conference camera","ACTIVE","Electronics",1490,4.5,1090,271,83,29,17
+Xbox Series S,299.99,349.99,"Digital gaming console","ACTIVE","Toys & Games",4129,4.7,3401,510,118,52,48
+PlayStation 5 Digital,499.99,549.99,"8K HD gaming console","ACTIVE","Toys & Games",5981,4.8,4863,721,234,91,72
+Meta Quest 3,499.99,599.99,"VR headset with advanced tracking","ACTIVE","Toys & Games",1312,4.6,978,216,63,26,19
+Acer Chromebook Spin,249.99,299.99,"Convertible budget laptop","ACTIVE","Electronics",753,4.3,401,231,82,22,17
+HP DeskJet 4155e,99.99,129.99,"All-in-one color printer","ACTIVE","Electronics",842,4.2,495,221,76,28,22
+Vornado Fan,49.99,64.99,"Circulating room fan","ACTIVE","Home & Garden",1207,4.5,811,231,105,40,20
+Braun Beard Trimmer,39.99,49.99,"Rechargeable precision grooming","ACTIVE","Beauty & Personal Care",933,4.4,603,216,72,29,13
+Dove Body Wash,12.99,15.99,"Moisturizing cleanser","ACTIVE","Beauty & Personal Care",2065,4.7,1688,216,91,43,27
+Aveeno Daily Lotion,13.99,16.99,"Oat-based moisturizing lotion","ACTIVE","Beauty & Personal Care",819,4.5,568,158,60,21,12
+Oral-B Pro 1000,49.99,59.99,"Rechargeable electric toothbrush","ACTIVE","Beauty & Personal Care",1143,4.6,897,168,54,16,8
+Colgate Max Fresh,5.99,7.99,"Gel toothpaste with cooling crystals","ACTIVE","Beauty & Personal Care",1432,4.4,805,359,171,67,30
+SheaMoisture Shampoo,17.99,21.99,"Natural hair hydration","ACTIVE","Beauty & Personal Care",719,4.5,502,135,51,20,11
+Burts Bees Lip Balm,3.99,4.99,"Natural beeswax moisturizing stick","ACTIVE","Beauty & Personal Care",1197,4.7,952,172,51,15,7
+Vicks Vaporub,6.99,8.99,"Chest rub for cough relief","ACTIVE","Health & Wellness",2310,4.5,1784,391,83,30,22
+Advil Liqui-Gels,9.99,12.99,"Fast-acting pain relief","ACTIVE","Health & Wellness",2040,4.6,1650,265,91,23,11
+Nature Made Vitamin C,8.99,10.99,"1000mg immunity support","ACTIVE","Health & Wellness",1504,4.7,1105,279,88,21,11
+Purell Hand Sanitizer,2.99,3.99,"Kills 99.9% of germs","ACTIVE","Health & Wellness",1956,4.4,1243,455,188,45,25
+Salomon Trail Shoes,129.99,149.99,"Off-road running shoes","ACTIVE","Clothing",933,4.6,653,178,65,23,14
+Klean Kanteen Tumbler,29.99,34.99,"Insulated travel mug","ACTIVE","Home & Garden",483,4.5,312,114,43,10,4
+Thermos Kids Funtainer,19.99,24.99,"Leak-proof insulated bottle","ACTIVE","Home & Garden",1214,4.7,887,185,99,28,15
+Crockpot Slow Cooker,49.99,59.99,"6-qt programmable cooker","ACTIVE","Home & Garden",1493,4.6,1109,253,94,27,10

@@ -1,0 +1,16 @@
+package com.megaorders.models.enums;
+
+public enum DeliveryStatus {
+    ORDER_UNPLACED,
+    ORDER_PLACED,
+    PACKED_NOT_DISPATCHED,
+    DISPATCHED,
+    NEAREST_HUB,
+    OUT_FOR_DELIVERY,
+    DELIVERED,
+    RETURN_REQUESTED,
+    RETURN_REJECTED,
+    RETURN_ACCEPTED,
+    RETURN_PICKUP,
+    AMOUNT_REFUNDED
+}

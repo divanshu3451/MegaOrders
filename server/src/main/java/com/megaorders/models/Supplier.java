@@ -13,11 +13,13 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "supplier")
+@Table(name = "supplier", indexes = {@Index(name = "idx_supplier_lincense_number", columnList = "license_number")})
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
     private String licenseNumber;
 
     @Enumerated(EnumType.STRING)
@@ -29,4 +31,14 @@ public class Supplier {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplier", orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ProductSupplier> products = new ArrayList<>();
+
+    public Boolean addProductSupplier(ProductSupplier productSupplier) {
+        productSupplier.setSupplier(this);
+        return this.products.add(productSupplier);
+    }
+
+    public Boolean removeProductSupplier(ProductSupplier productSupplier) {
+        productSupplier.setSupplier(null);
+        return this.products.remove(productSupplier);
+    }
 }

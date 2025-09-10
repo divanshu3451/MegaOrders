@@ -3,6 +3,9 @@ package com.megaorders.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -25,4 +28,16 @@ public class OrderProduct {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderProduct", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Item> items = new ArrayList<>();
+
+    public Boolean addItem(Item item) {
+        item.setOrderProduct(this);
+        return this.items.add(item);
+    }
+
+    public Boolean removeItem(Item item) {
+        item.setOrderProduct(null);
+        return this.items.remove(item);
+    }
 }

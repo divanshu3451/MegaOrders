@@ -1,0 +1,21 @@
+email,companyName,companyAddress,gstNumber
+vendor1@example.com,Vendor One Inc,123 Main St, GST001
+vendor2@example.com,Vendor Two LLC,456 Oak Ave, GST002
+vendor3@example.com,Vendor Three Corp,789 Pine Rd, GST003
+vendor4@example.com,Vendor Four Ltd,321 Elm St, GST004
+vendor5@example.com,Vendor Five Inc,654 Maple Ave, GST005
+vendor6@example.com,Vendor Six LLC,987 Cedar Rd, GST006
+vendor7@example.com,Vendor Seven Corp,147 Birch St, GST007
+vendor8@example.com,Vendor Eight Ltd,258 Walnut Ave, GST008
+vendor9@example.com,Vendor Nine Inc,369 Spruce Rd, GST009
+vendor10@example.com,Vendor Ten LLC,741 Ash St, GST010
+vendor11@example.com,Vendor Eleven Corp,852 Willow Ave, GST011
+vendor12@example.com,Vendor Twelve Ltd,963 Poplar Rd, GST012
+vendor13@example.com,Vendor Thirteen Inc,159 Hickory St, GST013
+vendor14@example.com,Vendor Fourteen LLC,260 Chestnut Ave, GST014
+vendor15@example.com,Vendor Fifteen Corp,371 Sycamore Rd, GST015
+vendor16@example.com,Vendor Sixteen Ltd,482 Fir St, GST016
+vendor17@example.com,Vendor Seventeen Inc,593 Hemlock Ave, GST017
+vendor18@example.com,Vendor Eighteen LLC,604 Redwood Rd, GST018
+vendor19@example.com,Vendor Nineteen Corp,715 Sequoia St, GST019
+vendor20@example.com,Vendor Twenty Ltd,826 Juniper Ave, GST020

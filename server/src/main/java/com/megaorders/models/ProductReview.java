@@ -3,7 +3,8 @@ package com.megaorders.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,8 @@ public class ProductReview {
     private Long rating;
     private String description;
     private Boolean isAnonymous;
-    private LocalDateTime createdAt;
+    private LocalDate createdDate;
+    private LocalTime createdTime;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -33,4 +35,14 @@ public class ProductReview {
 
     @OneToMany(mappedBy = "productReview", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReviewUpdateHistory> updateHistory = new ArrayList<>();
+
+    public Boolean addReviewUpdateHistory(ReviewUpdateHistory reviewUpdateHistory) {
+        reviewUpdateHistory.setProductReview(this);
+        return this.updateHistory.add(reviewUpdateHistory);
+    }
+
+    public Boolean removeReviewUpdateHistory(ReviewUpdateHistory reviewUpdateHistory) {
+        reviewUpdateHistory.setProductReview(null);
+        return this.updateHistory.remove(reviewUpdateHistory);
+    }
 }

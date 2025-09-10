@@ -6,11 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @AllArgsConstructor
@@ -23,7 +22,8 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime orderTime;
+    private LocalDate orderDate;
+    private LocalTime orderTime;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -31,6 +31,16 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProduct> orderedProducts = new ArrayList<>();
+
+    public Boolean addOrderProduct(OrderProduct orderProduct) {
+        orderProduct.setOrder(this);
+        return this.orderedProducts.add(orderProduct);
+    }
+
+    public Boolean removeOrderProduct(OrderProduct orderProduct) {
+        orderProduct.setOrder(null);
+        return this.orderedProducts.remove(orderProduct);
+    }
 
     @ManyToOne
     @JoinColumn(name = "payment_detail_id")
