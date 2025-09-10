@@ -4,17 +4,13 @@ import com.megaorders.dtos.dummy.*;
 import com.megaorders.models.*;
 import com.megaorders.models.embeddables.DeliveryInfo;
 import com.megaorders.models.embeddables.ReturnInfo;
-import com.megaorders.models.enums.PaymentMode;
 import com.megaorders.repositories.*;
 import com.megaorders.utils.FieldUtils;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,7 +72,7 @@ public class DataLoaderService implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         Map<String, String> csvMethodMap = getStringStringMap();
         Class<?> clazz = this.getClass();
 
