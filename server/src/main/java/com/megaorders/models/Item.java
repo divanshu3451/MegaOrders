@@ -50,4 +50,17 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Item)) return false;
+        Item item = (Item) o;
+        return serialNumber != null && serialNumber.equals(item.serialNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return serialNumber != null ? serialNumber.hashCode() : 0;
+    }
 }

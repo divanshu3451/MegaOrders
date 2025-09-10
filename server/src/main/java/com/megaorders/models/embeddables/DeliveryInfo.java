@@ -11,6 +11,10 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeliveryInfo {
+    private LocalDate orderPlacedDate;
+    private LocalTime orderPlacedTime;
+    private LocalDate packedDate;
+    private LocalTime packedTime;
     private LocalDate dispatchDate;
     private LocalTime dispatchTime;
     private LocalDate nearestHubDate;

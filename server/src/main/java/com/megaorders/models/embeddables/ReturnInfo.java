@@ -15,13 +15,14 @@ import java.time.LocalTime;
 public class ReturnInfo {
     private LocalDate returnExpireDate;
     private LocalTime returnExpireTime;
-    private LocalDate returnClaimDate;
-    private LocalTime returnClaimTime;
-    private Boolean isReturnAccepted;
+    private LocalDate returnRequestedDate;
+    private LocalTime returnRequestedTime;
     private LocalDate returnAcceptedDate;
     private LocalTime returnAcceptedTime;
     private LocalDate returnPickUpDate;
     private LocalTime returnPickUpTime;
     private LocalDate refundDate;
     private LocalTime refundTime;
+    private LocalDate returnRejectedDate;
+    private LocalTime returnRejectedTime;
 }
