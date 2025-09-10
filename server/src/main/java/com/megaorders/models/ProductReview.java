@@ -35,4 +35,14 @@ public class ProductReview {
 
     @OneToMany(mappedBy = "productReview", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReviewUpdateHistory> updateHistory = new ArrayList<>();
+
+    public Boolean addReviewUpdateHistory(ReviewUpdateHistory reviewUpdateHistory) {
+        reviewUpdateHistory.setProductReview(this);
+        return this.updateHistory.add(reviewUpdateHistory);
+    }
+
+    public Boolean removeReviewUpdateHistory(ReviewUpdateHistory reviewUpdateHistory) {
+        reviewUpdateHistory.setProductReview(null);
+        return this.updateHistory.remove(reviewUpdateHistory);
+    }
 }

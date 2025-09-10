@@ -53,17 +53,62 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
+    public Boolean addOrder(Order order) {
+        order.setUser(this);
+        return this.orders.add(order);
+    }
+
+    public Boolean removeOrder(Order order) {
+        order.setUser(null);
+        return this.orders.remove(order);
+    }
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Supplier supplier;
+
+    public void addSupplier(Supplier supplier) {
+        this.supplier = supplier;
+        this.supplier.setUser(this);
+    }
+
+    public void removeSupplier(Supplier supplier) {
+        this.supplier.setUser(null);
+        this.supplier = null;
+    }
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Vendor vendor;
 
+    public void addVendor(Vendor vendor) {
+        this.vendor = vendor;
+        this.vendor.setUser(this);
+    }
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PaymentDetail> paymentDetails = new ArrayList<>();
 
+    public Boolean addPaymentDetail(PaymentDetail paymentDetail) {
+        paymentDetail.setUser(this);
+        return this.paymentDetails.add(paymentDetail);
+    }
+
+    public Boolean removePaymentDetail(PaymentDetail paymentDetail) {
+        paymentDetail.setUser(null);
+        return this.paymentDetails.remove(paymentDetail);
+    }
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductReview> reviews = new ArrayList<>();
+
+    public Boolean addProductReview(ProductReview productReview) {
+        productReview.setUser(this);
+        return this.reviews.add(productReview);
+    }
+
+    public Boolean removeProductReview(ProductReview productReview) {
+        productReview.setUser(null);
+        return this.reviews.remove(productReview);
+    }
 
 }
 

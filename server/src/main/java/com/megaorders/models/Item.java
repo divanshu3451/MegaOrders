@@ -1,5 +1,7 @@
 package com.megaorders.models;
 
+import com.megaorders.models.embeddables.DeliveryInfo;
+import com.megaorders.models.embeddables.ReturnInfo;
 import com.megaorders.models.enums.DeliveryStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,7 +18,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "item", indexes = {@Index(name = "idx_item_status", columnList = "status~")})
+@Table(name = "item", indexes = {@Index(name = "idx_item_status", columnList = "status")})
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,26 +26,18 @@ public class Item {
 
     @Column(unique = true)
     private String serialNumber;
+
+    @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
-    private LocalDate dispatchDate;
-    private LocalTime dispatchTime;
-    private LocalDate nearestHubDate;
-    private LocalTime nearestHubTime;
-    private LocalDate outForDeliveryDate;
-    private LocalTime outForDeliveryTime;
-    private LocalDate deliveryDate;
-    private LocalTime deliveryTime;
-    private LocalDate returnExpireDate;
-    private LocalTime returnExpireTime;
-    private LocalDate returnClaimDate;
-    private LocalTime returnClaimTime;
-    private Boolean isReturnAccepted;
-    private LocalDate returnAcceptedDate;
-    private LocalTime returnAcceptedTime;
-    private LocalDate returnPickUpDate;
-    private LocalTime returnPickUpTime;
-    private LocalDate refundDate;
-    private LocalTime refundTime;
+
+    @Embedded
+    private DeliveryInfo deliveryInfo;
+
+    @Embedded
+    private ReturnInfo returnInfo;
+
+    @Column(unique = true)
+    private String imeiNumber;
 
     @ManyToOne
     @JoinColumn(name = "product_supplier_id")
@@ -52,4 +46,21 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "order_product_id")
     private OrderProduct orderProduct;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Item)) return false;
+        Item item = (Item) o;
+        return serialNumber != null && serialNumber.equals(item.serialNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return serialNumber != null ? serialNumber.hashCode() : 0;
+    }
 }

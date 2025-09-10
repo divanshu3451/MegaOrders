@@ -14,13 +14,15 @@ import lombok.Setter;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "vendor")
+@Table(name = "vendor", indexes = {@Index(name = "idx_vendor_gst_number", columnList = "gst_number")})
 public class Vendor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String companyName;
     private String companyAddress;
+
+    @Column(unique = true, nullable = false)
     private String gstNumber;
 
     @OneToOne
